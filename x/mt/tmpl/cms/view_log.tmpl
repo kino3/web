@@ -1,0 +1,30 @@
+<TMPL_INCLUDE NAME="header.tmpl">
+
+<h2><MT_TRANS phrase="Activity Log">: <span class="title-highlight"><TMPL_IF NAME=BLOG_ID><TMPL_VAR NAME=BLOG_NAME ESCAPE=HTML><TMPL_ELSE><MT_TRANS phrase="System-wide"></TMPL_IF></span></h2>
+
+<p class="page-desc">
+<MT_TRANS phrase="The Movable Type activity log contains a record of notable actions in the system.">
+<TMPL_IF NAME=TIME_OFFSET>
+<MT_TRANS phrase="All times are displayed in GMT"><TMPL_VAR NAME=TIME_OFFSET>
+<TMPL_ELSE>
+<MT_TRANS phrase="All times are displayed in GMT.">
+</TMPL_IF> (<a href="<TMPL_VAR NAME=SCRIPT_URL>?__mode=export_log<TMPL_IF NAME=BLOG_ID>&amp;blog_id=<TMPL_VAR NAME=BLOG_ID></TMPL_IF>&amp;magic_token=<TMPL_VAR NAME=MAGIC_TOKEN>&amp;return_args=<TMPL_VAR NAME=RETURN_ARGS ESCAPE=URL>"><MT_TRANS phrase="Export in CSV format."></a>)</p>
+
+<TMPL_IF NAME=RESET>
+<h4 class="message"><MT_TRANS phrase="The activity log has been reset."></h4>
+</TMPL_IF>
+
+<TMPL_IF NAME=LOG_TABLE>
+
+<div class="list-wrapper">
+<TMPL_INCLUDE NAME=log_table.tmpl>
+<TMPL_INCLUDE NAME=pager.tmpl>
+</div>
+
+<TMPL_ELSE>
+
+<div class="message"><MT_TRANS phrase="No log entries could be found."></div>
+
+</TMPL_IF>
+
+<TMPL_INCLUDE NAME=footer.tmpl>

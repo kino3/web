@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="doc-styles.css" type="text/css"/>
+<title>Movable Typeユーザー・マニュアル: PRE-INSTALLED PLUGINS</title>
+</head>
+
+<body>
+<h1 id="__index__">Movable Typeユーザー・マニュアル: PRE-INSTALLED PLUGINS</h1>
+<p><a href="mtmanual.html">&laquo; Table of Contents</a></p>
+<ul>
+	<li><a href="#preinstalled_plugins">PRE-INSTALLED PLUGINS</a>
+	<ul>
+		<li><a href="#nofollow">Nofollow</a></li>
+	</ul>
+	</li>
+</ul>
+<hr />
+
+<h2><a name="preinstalled_plugins"></a>PRE-INSTALLED PLUGINS</h2>
+
+<h2><a name="nofollow"></a>Nofollow</h2>
+<p>Starting with Movable Type 3.16, the &quot;Nofollow&quot; plugin is included by default in the application. This plugin automatically asserts a &quot;nofollow&quot; link relationship for third-party hyperlinks in comments and TrackBacks.</p>
+<p>For more information about the nofollow link relationship, see the &quot;Introduction to nofollow&quot; at <a href="http://www.sixapart.com/pronet/weblog/2005/01/introduction_to.html">http://www.sixapart.com/pronet/weblog/2005/01/introduction_to.html</a></p>
+<p><strong>Plugin operation</strong></p>
+<p>The plugin alters the behavior of the following Movable Type tags:<code>&lt;$MTCommentAuthorLink$&gt;</code>, <code>&lt;$MTCommentBody$&gt;</code> and 
+<code>&lt;MTPings&gt;</code>.</p>
+<p>In each case, Nofollow will intercept the content produced by these tags and alter any hyperlinks it finds, adding a &quot;nofollow&quot; relation (&quot;rel&quot;) attribute to them. In the event that a hyperlink already has a &quot;rel&quot; attribute, the &quot;nofollow&quot; relation is added to the front of the list.</p>
+<p>For example the following submitted in comment or TrackBack:</p>
+
+<pre>
+&lt;a href=&quot;http://sixapart.com&quot;&gt;
+&lt;a href=&quot;http://movabletype.org&quot; rel=&quot;software&quot;&gt;
+</pre>
+
+<p>would become:</p>
+
+<pre>
+&lt;a href=&quot;http://sixapart.com&quot; rel=&quot;nofollow&quot;&gt;
+&lt;a href=&quot;http://movabletype.org&quot; rel=&quot;nofollow software&quot;&gt;
+</pre>
+
+<p>You can also use a new global tag attribute provided with this plugin.  The attribute is named &quot;nofollowfy&quot;.  You can apply it to any Movable Type tag to achieve the same effect described above. For example, if you had a plugin which displayed your site referrer information, you could use it as such:</p>
+
+<pre>
+&lt;MTReferers nofollowfy=&quot;1&quot;&gt;
+</pre>
+
+<p><strong>Installation</strong></p>
+<p>The following files are installed by default in Movable Type 3.16 and higher:</p>
+
+<pre>
+plugins/nofollow/nofollow.pl
+plugins/nofollow/mt-nofollow.cgi
+plugins/nofollow/tmpl/nofollow.tmpl
+php/plugins/init.nofollow.php
+</pre>
+
+<p>For Movable Type 3.x, upon proper installation, you will see a new &quot;Nofollow&quot; plugin listed on the Main Menu of your Movable Type installation.  If you click on the link and get an error, you may have to set the permissions of the mt-nofollow.cgi script to 755.  See the section in the Installation manual entitled <a href="./mtmanual_install.html#uploading_files">Uploading Files</a> for information about setting permissions.</p>
+<p>Note that if you are upgrading from the first release of this plugin, you should remove the old version first to avoid having two copies installed that may conflict with one another.  If you're installing the PHP version of the plugin and you're using dynamic publishing, you may have to clear your weblog's &quot;templates_c&quot; directory.</p>
+<p><strong>Uninstallation</strong></p>
+<p>To remove this plugin, just remove the files above.  Then, rebuild your site so that your links published normally.</p>
+<p><strong>License</strong></p>
+<p>The Nofollow plugin is released under the Artistic License. The text of this license can be found in the LICENSE.txt file included with this archive. It is also available 
+here: <a href="http://www.opensource.org/licenses/artistic-license.php">http://www.opensource.org/licenses/artistic-license.php</a></p>
+<hr />
+
+<span class="copyright">Copyright &copy; 2001-2005 Six Apart, Ltd. All Rights Reserved.</span>
+</body>
+</html>

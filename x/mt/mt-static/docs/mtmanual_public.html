@@ -1,0 +1,221 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="doc-styles.css" type="text/css"/>
+<title>Movable Typeユーザー・マニュアル: サイト全体の検索</title>
+</head>
+
+<body>
+<h1 id="__index__">Movable Typeユーザー・マニュアル: サイト全体の検索</h1>
+<p><a href="mtmanual.html">&laquo; 目次</a></p>
+<ul>
+	<li><a href="#public_search">サイト全体の検索</a>
+	<ul>
+		<li><a href="#search_templates">検索結果のテンプレート </a></li>
+		<li><a href="#search_forms">検索フォーム</a></li>
+		<li><a href="#alternate_templates">代替テンプレート</a></li>
+		<li><a href="#converting_from_previous_versions_of_mtsearch">以前のバージョンのmt-searchからMovable Typeに統合された検索エンジンに変換する</a></li>
+	</ul>
+	</li>
+</ul>
+<hr />
+
+<h2><a name="public_search"></a>サイト全体の検索</h2>
+<p>Movable Typeのサイト全体の検索に使うインタフェースは、Jay Allenが開発したMovable Typeのプラグインであるmt-searchが統合されたものです。 検索エンジンは、単純なキーワード検索と新規コメント検索の2種類をサポートします。 単純なキーワード検索では、ブーリアン(真偽値)の検索、句の検索、および任意で正規表現のマッチングをサポートします。 新規コメント検索(正確には検索というよりもほとんどの一覧表示)は、指定した期間内のサイトに投稿された新しいコメントをすべて一覧します。</p>
+<p>検索クエリーは、あなたのサイトのアクティビティ・ログに記録されます。</p>
+
+<h2><a name="search_templates"></a>検索結果のテンプレート </h2>
+<p>検索結果のテンプレートは、1つのブログごとに管理されていないため、Movable Typeの他のテンプレートのようには管理されません。したがって、編集メニューに検索結果のテンプレート・セクションを設けるのも意味がありません。 検索結果のテンプレートは、<em> search_templates/ </em> ディレクトリのファイルで、このディレクトリは<em> mt.cgi </em> と同じディレクトリにあるはずです。</p>
+<p>検索結果のテンプレートでは、「<a href="./mtmanual_tags.html#search_results_tags">検索結果タグ</a>」を使って検索結果を表示します Movable Typeのほかのほとんどのタグも使えますが、タグを使うコンテキストをよく考慮する必要があります。 さらに、検索結果のページは動的で、誰かがあなたのサイトで検索するたびにページは再構築されます。したがって、たとえば<em> &lt;MTArchiveList> </em> や<em> &lt;MTCalendar> </em> など、多くのサーバー・リソースと時間を要するタグを使うときには注意が必要です。</p>
+<p>そのほか、<em> &lt;MTInclude> </em> タグを検索結果テンプレートに使って、テンプレート・モジュールや外部のファイルを含めることができます。 こうした、コンテキストに1つのブログが必要なタグ(テンプレート・モジュールは1つのブログごとに保存されるので)を<em> &lt;MTSearchResults> </em> コンテナ・タグの外側に使うこともできます。 ただし、この方法には注意を要します。特に、あなたのサイトに複数のブログが存在している場合は慎重にすべきです。 たとえば、以下のタグをテンプレートで使った場合、</p>
+<pre>
+&lt;$MTInclude module="Header"$>
+</pre>
+<p>システムは、<em> Header </em> というモジュールがどのブログにあるのかを知る必要があります。 検索結果が見つかった場合、システムはアルファベット順に一番早いブログを探します。検索結果がない場合、Movable Typeはデータベースからブログをロードしようと試みます(選択されるブログの決定は、未定義です)。</p>
+<p>この動作は将来、改善される可能性があります。</p>
+
+<h2><a name="search_forms"></a>検索フォーム</h2>
+<p>Movable Typeのデフォルト・テンプレートは、サイトのブログを検索するための簡単な検索フォームを含みます。 これはフォームの一例です。</p>
+<pre>
+&lt;form method="get" action="&lt;$MTCGIPath$>&lt;$MTSearchScript$>">
+&lt;label for="search" accesskey="4">検索するサイト:&lt;/label>&lt;br />
+&lt;input id="search" name="search" size="20" />&lt;br />
+&lt;input type="submit" value="Search" />
+&lt;/form>
+</pre>
+<p>以下は、オプションがすべて表示された完全なフォームの一例です。</p>
+<pre>
+&lt;form method="post" action="&lt;$MTCGIPath$>&lt;$MTSearchScript$>">
+&lt;input size="30" name="search" value="&lt;$MTSearchString$>" />
+&lt;input type="submit" value="Search" />&lt;br />
+</pre>
+<pre>
+&lt;input type="checkbox" name="CaseSearch" />大文字と小文字の区別
+&lt;input type="checkbox" name="RegexSearch" />正規表現の検索&lt;br />
+</pre>
+<pre>
+&lt;b>検索:&lt;/b>
+&lt;input type="radio" name="SearchElement" value="entries" />エントリー
+&lt;input type="radio" name="SearchElement" value="comments" />コメント
+&lt;input type="radio" name="SearchElement" value="both" />両方&lt;br />
+</pre>
+<pre>
+&lt;b>並べ替え基準:&lt;/b>
+&lt;select name="SearchSortBy">
+&lt;option value="created_on">作成日時&lt;/option>
+&lt;option value="title">タイトル&lt;/option>
+&lt;/select>&lt;br />
+</pre>
+<pre>
+&lt;b>並べ替え順:&lt;/b>
+&lt;select name="ResultDisplay">
+&lt;option value="ascend">昇順&lt;/option>
+&lt;option value="descend">降順&lt;/option>
+&lt;/select>&lt;br />
+</pre>
+<pre>
+&lt;b>対象外にするブログ:&lt;/b>
+&lt;MTBlogs>
+&lt;input type="checkbox" name="ExcludeBlogs" value="&lt;$MTBlogID$>" /> &lt;$MTBlogName$>
+&lt;/MTBlogs>&lt;br />
+</pre>
+<pre>
+&lt;b>エントリーの検索対象期間:&lt;/b>
+&lt;select name="SearchCutoff">
+&lt;option value="9999999">最初から&lt;/option>
+&lt;option value="7">1週間前から&lt;/option>
+&lt;option value="14">2週間前から&lt;/option>
+&lt;option value="30">1カ月前から&lt;/option>
+&lt;option value="60">2カ月前から&lt;/option>
+&lt;option value="90">3カ月前から&lt;/option>
+&lt;option value="365">1年前から&lt;/option>
+&lt;/select>&lt;br />
+</pre>
+<pre>
+&lt;b>ブログごとの検索結果の表示数:&lt;/b>
+&lt;select name="MaxResults">
+&lt;option value="5">5&lt;/option>
+&lt;option value="10">10&lt;/option>
+&lt;option value="25">25&lt;/option>
+&lt;option value="50">50&lt;/option>
+&lt;option value="100">100&lt;/option>
+&lt;option value="9999999">すべて&lt;/option>
+&lt;/select>
+&lt;/form>
+</pre>
+<p>この検索フォームでは、ユーザーは検索パラメータを一層柔軟に扱え、大文字と小文字の区別や、真偽値のクエリーの代わりに正規表現のマッチが使えるなど、検索条件をより具体的にできます。 検索対象は、エントリーまたはコメント、あるいはその両方に限定できます。 ただし、コメント検索はエントリー検索に比べ、より時間とリソースを費します。</p>
+<p>上のフォームには特定のブログを検索対象から外す機能も含まれています。 これは1つだけのブログを検索したい場合に便利です。 「<em> 対象外にするブログ </em> 」の代わりに以下を使うこともできます。</p>
+<pre>
+&lt;b>検索対象のブログ:&lt;/b>
+&lt;MTBlogs>
+&lt;input type="checkbox" name="IncludeBlogs" value="&lt;$MTBlogID$>" /> &lt;$MTBlogName$>
+&lt;/MTBlogs>&lt;br />
+</pre>
+<p>これは「<em> 対象外にするブログ </em> 」の反対の設定ですが、この方がどんな検索をするにしろ、望ましいかもしれません。 たとえば、ブログを特定した検索結果ページを作成する方が、除外するブログのリストを維持するより、簡単です。ブログを特定するには、以下をフォームに追加するだけです。</p>
+<pre>
+&lt;input type="hidden" name="IncludeBlogs" value="&lt;$MTBlogID$>" />
+</pre>
+<p><em> &lt;$MTBlogID$> </em> はいつも現在のブログを参照します。したがってこの検索は、常に表示しているブログだけに限定されます。</p>
+<p>上の検索フォームは単純な検索に使います。 以下は、完全な機能が揃った新規コメント検索フォームの一例です。</p>
+<pre>
+&lt;form method="post" action="&lt;$MTCGIPath$>&lt;$MTSearchScript$>">
+&lt;input type="hidden" name="Type" value="newcomments" />
+</pre>
+<pre>
+&lt;b>対象外にするブログ:&lt;/b>
+&lt;MTBlogs>
+&lt;input type="checkbox" name="ExcludeBlogs" value="&lt;$MTBlogID$>" /> &lt;$MTBlogName$>
+&lt;/MTBlogs>&lt;br />
+</pre>
+<pre>
+&lt;b>エントリーの検索対象期間:&lt;/b>
+&lt;select name="CommentSearchCutoff">
+&lt;option value="9999999">最初から&lt;/option>
+&lt;option value="7">１週間前から&lt;/option>
+&lt;option value="14">2週間前から&lt;/option>
+&lt;option value="30">１カ月前から&lt;/option>
+&lt;option value="60">2カ月前から&lt;/option>
+&lt;option value="90">3カ月前から&lt;/option>
+&lt;option value="365">1年前から&lt;/option>
+&lt;/select>&lt;br />
+</pre>
+<pre>
+&lt;b>検索結果のエントリー表示数:&lt;/b>
+&lt;select name="MaxResults">
+&lt;option value="5">5&lt;/option>
+&lt;option value="10">10&lt;/option>
+&lt;option value="25">25&lt;/option>
+&lt;option value="50">50&lt;/option>
+&lt;option value="100">100&lt;/option>
+&lt;option value="9999999">すべて&lt;/option>
+&lt;/select>&lt;br />
+</pre>
+<pre>
+&lt;input type="submit" value="Find new comments" />
+&lt;/form>
+</pre>
+
+<h2><a name="alternate_templates"></a>代替テンプレート</h2>
+<p>通常、検索が実施されると、デフォルトの検索結果テンプレートである<em> default.tmpl </em> が、あるいは新規コメント検索の場合は<em> comments.tmpl </em> が、結果を表示するために処理されます。 複数のブログがあり、各ブログに検索ツールを使っている場合は、ブログごとに検索結果の外見を変えたいと思うこともあるでしょう。 あるいは、公開しているサイトに複数のバージョンがあるとします。たとえば、画像を使った標準のバージョンと画像のない携帯デバイス用のテキスト主体のバージョンなどです。 こうした場合には、あなたのサイトの訪問者がどのバージョンを使っていようが、サイトを通して検索結果の外見と使い勝手を一貫させたいと思うことでしょう。</p>
+<p>これを実施するには、<em> 代替テンプレート </em> を使います。 たとえば、各ブログには、それぞれのデザインにマッチした検索結果テンプレートを用意できます。また、サイトの各バージョンには、<strong>バージョン固有の</strong>検索結果テンプレートを用意することができます。</p>
+<ol>
+<li><strong><a name="item_create_the_templates">テンプレートを作成する</a></strong>
+<p>外見と使い勝手の異なるテンプレートをそれぞれ別の検索結果テンプレートに作成し、<em> search_templates/ </em> ディレクトリに入れます。</p>
+</li>
+<li><strong><a name="item_add_the_templates_to_your_configuration">テンプレートを構成設定に加える</a></strong>
+<p><em> mt-config.cgi </em> ファイルをテキスト・エディタで開き、<em> AltTemplate </em> ディレクティブを使って、代替テンプレートを設定します。 たとえば、あなたが<em> Work </em> と<em> Play </em> の2つのブログを持っており、各ブログにそれぞれテンプレートを用意したい場合は、以下を追加します。</p>
+<pre>
+AltTemplate work work.tmpl
+AltTemplate play play.tmpl
+</pre>
+</li>
+<li><strong><a name="item_configure_the_search_form">検索フォームを設定する</a></strong>
+<p>Movable Typeに検索結果のページを構築するとき、どのテンプレートを使うかを伝えるには、”hidden form input”(隠れたフォーム入力)を使います。 これを、たとえば、以下のように<em> Work </em> ブログの検索フォームに加えます。</p>
+<pre>
+&lt;input type="hidden" name="Template" value="work" />
+</pre>
+<p>(<strong>注：</strong>検索をこの1つのブログだけに限定したい場合は、</p>
+<pre>
+&lt;input type="hidden" name="IncludeBlogs" value="&lt;$MTBlogID$>" />
+</pre>
+<p>をフォームにも加えることができます。</p>
+</li>
+</ol>
+
+<h2><a name="converting_from_previous_versions_of_mtsearch"></a>以前のバージョンのmt-searchからMovable Typeに統合された検索エンジンに変換する</h2>
+<p>Jayの検索エンジンを使っていた場合は、Movable Typeに統合されたバージョンに変換する必要があります。 次のステップに従います。</p>
+<ol>
+<li><strong><a name="item_upgrade_your_copy_of_movable_type">Movable Typeのコピーをアップグレードする</a></strong>
+<p>これをすでに済ませている場合は、検索エンジンが統合されているMovable Typeのバージョン2.5以降にアップグレードしたかどうかを確認します。 </p>
+</li>
+<li><strong><a name="item_copy_configuration_settings">設定値をコピーする</a></strong>
+<p>Movable Typeがアップグレードされ、検索エンジンが統合されているので、<em> mt-search.cfg </em> と<em> mt-config.cgi </em> の2つの設定ファイルを使う必要はありません。 検索エンジンの新しいバージョンは、標準の<em> mt-config.cgi </em> ファイルに検索設定があることを期待します。 </p>
+<p>したがって、<em> mt-config.cgi </em> と<em> mt-search.cfg </em> を共にテキスト・エディタで開き、<em> mt-search.cfg </em> の中身をすべて<em> mt-config.cgi </em> にコピーする必要があります。</p>
+</li>
+<li><strong><a name="item_update_your_alttemplate_settings">AltTemplateの設定をアップグレードする</a></strong>
+<p>新しいバージョンの検索は、簡素化された<em> AltTemplate </em> フォーマットを使っており、代替テンプレートを数に限りなく指定することができます。 代替テンプレートをmt-searchと共に使っている場合は、<em> AltTemplateN </em> ディレクティブを<em> AltTemplate </em> に変更する必要があります。 つまり、<em> AltTemplateN </em> ディレクティブの最後にある数を削除します。 たとえば、以下を使っていた場合、</p>
+<pre>
+AltTemplate1 work work.tmpl
+</pre>
+<p>以下のように変更します。</p>
+<pre>
+AltTemplate work work.tmpl
+</pre>
+</li>
+<li><strong><a name="item_rename_your_templatedir_setting">TemplateDir設定名を変更する</a></strong>
+<p><em> TemplatePath </em> 設定による混乱を避けるため、新しいバージョンの検索では、<em> TemplateDir </em> という設定名を<em> SearchTemplatePath </em> に変更してあります。 たとえば、以下を使っていた場合、</p>
+<pre>
+TemplateDir /path/to/search_templates
+</pre>
+<p>以下のように変更します。</p>
+<pre>
+SearchTemplatePath /path/to/search_templates
+</pre>
+</li>
+</ol>
+<hr />
+
+<span class="copyright">Copyright &copy; 2001-2005 Six Apart, Ltd. All Rights Reserved.</span>
+</body>
+</html>

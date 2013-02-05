@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="doc-styles.css" type="text/css"/>
+<title>Movable Typeユーザー・マニュアル: Berkeley DBからのアップグレード</title>
+</head>
+
+<body>
+<h1 id="__index__">Movable Typeユーザー・マニュアル: Berkeley DBからのアップグレード</h1>
+<p><a href="mtmanual.html">&laquo; 目次</a></p>
+
+<div id="upgrade">
+<p>SQLデータベースとその接続に必要なPerlライブラリを、サーバーで利用できるかを調べるには、<em> mt-check.cgi </em> を実行し、<em> DBD::mysql </em> 、<em> DBD::postgres </em> 、および<em> DBD::SQLite </em> のモジュールのステータスを確認します。 これらのモジュールのいずれかがインストールされている場合は、Movable TypeのそれぞれのSQLデータベースのバージョンを、そのサーバーで利用できます。 いずれもインストールされていない場合は、ホスティング業者にSQLデータベースを使いたい旨を連絡する必要があります。</p>
+
+<p>データを変換する場合は、変換スクリプト(<em> mt-db2sql.cgi </em> )を使って、Berkeley DBファイルからのデータをSQLデータベースにコピーします。 現在インストールしているMovable Typeを、SQLデータベースが使えるよう変換するには、次のステップに従います。</p>
+
+<ol>
+<li id="item_Edit_your_mycfgfile"><em> mt-config.cgi </em> ファイルを編集する
+<p><em> mt-config.cgi </em> をテキスト・エディタで開き、以下の行を加えます。</p>
+<pre>
+ObjectDriver driver_name
+Database database_name
+DBUser database_user
+DBPassword database_password
+DBHost database_host
+DBPort database_port
+</pre>
+<p>上記の<em> driver_name </em> は<em> DBI::mysql </em> 、<em> DBI::postgres </em> 、<em> DBI::sqlite </em> のいずれかで、<em> database_name </em> はデータを保管するためのSQLデータベースの名称です。また、<em> database_user </em> はデータベースに接続するユーザー名、<em> database_user </em> はパスワードです。ただし、SQLiteを使う場合はユーザー名もパスワードも必要ありません。<em> database_host </em> と<em> database_port </em> はデータベース・サーバーのホスト名と接続する際のIPポート番号です。</p>
+<pre>
+DBHost database_host
+</pre>
+<p><strong>注：</strong>MySQLまたはPostgreSQLを使う場合、<em> database_name </em> に指定したデータベースは<strong>必ず</strong>存在している必要があります。Movable Typeはデータベースを自動生成しません。</p>
+</li>
+
+<li id="item_Run_mt-db2sql">mt-db2sql.cgiを実行する
+<p>ウェブ・ブラウザを開いて、あなたのサイトにある<em> mt-check.cgi </em> のURLにアクセスします。 たとえば、あなたのサイトが<em> <a href="http://www.your-site.com/">http://www.your-site.com/</a> </em> で、Movable Typeのファイルを<em> /mt </em> ディレクトリにアップロードした場合は、<em> <a href="http://www.your-site.com/mt/mt-db2sql.cgi">http://www.your-site.com/mt/mt-db2sql.cgi</a> </em> のURLにアクセスします。 <em> mt-db2sql.cgi </em> はPerlスクリプトで、SQLデータベースに必要なスキーマを作成し、Berkeley DBファイルからのデータを使ってデータベースを生成します。</p>
+</li>
+
+<li id"item_Check_for_success">変換に成功したかどうかをチェックする
+<p><em> mt-db2sql.cgi </em> の実行が終了したら、ブラウザのページ下部を見て、変換に成功したがどうかをチェックします。 成功していると、以下のメッセージが表示されます。</p>
+
+<pre>
+Done copying data from Berkeley DB to SQL database! All went well.
+</pre>
+<p>このメッセージが表示されていれば、作業は終わりです。 Movable Typeにログインしてシステムを使うときに、そのシステムに対応するSQLバージョンが使用できます。</p>
+
+<p>エラーが生じると、以下のメッセージが表示されます。</p>
+<pre>
+An error occurred while loading data:
+</pre>
+
+<p>このメッセージは具体的なエラー・メッセージと共に表示されます。 エラーが発生した場合は、<em> mt-config.cgi </em> ファイルを開き、以下の行を削除します。</p>
+
+<pre>
+ObjectDriver driver_name
+</pre>
+<p><em> driver_name </em> はステップ1で指定したドライバー名です。</p>
+<p>これによって、Movable TypeのBerkeley DBバージョンを使用する状態に戻ります。 受け取ったエラー・メッセージはサポート・フォーラムに投稿してください。</p>
+</li>
+</ol>
+</div>
+
+<hr />
+
+<span class="copyright">Copyright &copy; 2001-2005 Six Apart, Ltd. All Rights Reserved.</span>
+</body>
+</html>

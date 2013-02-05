@@ -1,0 +1,136 @@
+<TMPL_INCLUDE NAME="header.tmpl">
+
+<script type="text/javascript">
+<!--
+function welcomeMessageToggle() {
+	var text_message = getByID('welcome-message');
+	var text_edit = getByID('welcome-message-edit');
+	if (text_message && text_edit) {
+		if (text_edit.style.display == "none") {
+			text_message.style.display = "none";
+			text_edit.style.display = "block";
+		} else {
+			text_message.style.display = "block";
+			text_edit.style.display = "none";
+		}
+	}
+}
+//-->
+</script>
+
+<h2><TMPL_VAR NAME=BLOG_NAME ESCAPE=HTML></h2>
+
+<div id="rightcol-notes">
+
+<TMPL_IF NAME=HAS_EDIT_ACCESS>
+<div class="box" id="entry-box">
+<h4><MT_TRANS phrase="Five Most Recent Entries"></h4>
+<div class="list">
+<table cellspacing="0">
+<TMPL_LOOP NAME=ENTRY_LOOP>
+<tr class="<TMPL_IF __ODD__>odd<TMPL_ELSE>even</TMPL_IF>">
+<td class="label"><TMPL_IF NAME=HAS_EDIT_ACCESS><a href="<TMPL_VAR NAME=SCRIPT_URL>?__mode=view&amp;_type=entry&amp;id=<TMPL_VAR NAME=ENTRY_ID>&amp;blog_id=<TMPL_VAR NAME=ENTRY_BLOG_ID>"><TMPL_VAR NAME=ENTRY_TITLE></a><TMPL_ELSE><TMPL_VAR NAME=ENTRY_TITLE></TMPL_IF></td>
+<td class="date"><TMPL_VAR NAME=ENTRY_CREATED_ON></td>
+</tr>
+</TMPL_LOOP>
+</table>
+</div>
+<p><a href="<TMPL_VAR NAME=SCRIPT_URL>?__mode=list_entries&amp;blog_id=<TMPL_VAR NAME=BLOG_ID>"><MT_TRANS phrase="View all Entries"></a></p>
+</div>
+
+<TMPL_IF NAME=COMMENT_LOOP>
+<div class="box" id="comment-box">
+<h4><MT_TRANS phrase="Five Most Recent Comments"></h4>
+<div class="list">
+<table cellspacing="0">
+<TMPL_LOOP NAME=COMMENT_LOOP>
+<tr class="<TMPL_IF __ODD__>odd<TMPL_ELSE>even</TMPL_IF>">
+<td class="label"><TMPL_IF NAME=HAS_EDIT_ACCESS><a href="<TMPL_VAR NAME=SCRIPT_URL>?__mode=view&amp;_type=comment&amp;id=<TMPL_VAR NAME=COMMENT_ID>&amp;blog_id=<TMPL_VAR NAME=COMMENT_BLOG_ID>"><TMPL_IF NAME=COMMENT_AUTHOR><TMPL_VAR NAME=COMMENT_AUTHOR ESCAPE=HTML><TMPL_ELSE>[<MT_TRANS phrase="Anonymous">]</TMPL_IF></a><TMPL_ELSE><TMPL_IF NAME=COMMENT_AUTHOR><TMPL_VAR NAME=COMMENT_AUTHOR ESCAPE=HTML><TMPL_ELSE>[<MT_TRANS phrase="Anonymous">]</TMPL_IF></TMPL_IF></td>
+<td class="date"><TMPL_VAR NAME=COMMENT_CREATED_ON></td>
+</tr>
+</TMPL_LOOP>
+</table>
+</div>
+<p><a href="<TMPL_VAR NAME=SCRIPT_URL>?__mode=list_comments&amp;blog_id=<TMPL_VAR NAME=BLOG_ID>"><MT_TRANS phrase="View all Comments"></a></p>
+</div>
+</TMPL_IF>
+
+<TMPL_IF NAME=PING_LOOP>
+<div class="box" id="ping-box">
+<h4><MT_TRANS phrase="Five Most Recent TrackBacks"></h4>
+<div class="list">
+<table cellspacing="0">
+<TMPL_LOOP NAME=PING_LOOP>
+<tr class="<TMPL_IF __ODD__>odd<TMPL_ELSE>even</TMPL_IF>">
+<td class="label"><TMPL_IF NAME=HAS_EDIT_ACCESS><a href="<TMPL_VAR NAME=SCRIPT_URL>?__mode=view&amp;_type=ping&amp;id=<TMPL_VAR NAME=PING_ID>&amp;blog_id=<TMPL_VAR NAME=BLOG_ID>"></TMPL_IF><TMPL_VAR NAME=PING_TITLE ESCAPE=HTML><TMPL_IF NAME=HAS_EDIT_ACCESS></a></TMPL_IF></td>
+<td class="date"><TMPL_VAR NAME=PING_CREATED_ON></td>
+</tr>
+</TMPL_LOOP>
+</table>
+</div>
+<p><a href="<TMPL_VAR NAME=SCRIPT_URL>?__mode=list_pings&amp;blog_id=<TMPL_VAR NAME=BLOG_ID>"><MT_TRANS phrase="View all TrackBacks"></a></p>
+</div>
+</TMPL_IF>
+</TMPL_IF>
+
+</div>
+
+<div id="leftcol-main">
+<div id="welcome-message">
+<TMPL_IF NAME=WELCOME>
+<TMPL_VAR NAME=WELCOME>
+<TMPL_ELSE>
+<h4><MT_TRANS phrase="Welcome to [_1]." params="<TMPL_VAR NAME=BLOG_NAME ESCAPE=HTML>"></h4>
+
+<p><MT_TRANS phrase="You can post to and manage your weblog by selecting an option from the menu located to the left of this message."></p>
+
+<p><MT_TRANS phrase="If you need assistance, try:"></p>
+
+<p><a href="<TMPL_VAR NAME=HELP_URL>"><MT_TRANS phrase="Movable Type User Manual"></a><br />
+<a href="<TMPL_VAR NAME=MT_SUPPORT>"><MT_TRANS phrase="Movable Type Technical Support"></a><br />
+<a href="http://www.movabletype.org/support/"><MT_TRANS phrase="Movable Type Support Forum"></a></p>
+</TMPL_IF>
+
+<TMPL_IF NAME=CAN_EDIT_CONFIG>
+<TMPL_UNLESS NAME=WELCOME>
+<p><MT_TRANS phrase="This welcome message is configurable."></p>
+</TMPL_UNLESS>
+<p><a href="#" onclick="welcomeMessageToggle(); return false;"><MT_TRANS phrase="Change this message."></a></p>
+</TMPL_IF>
+</div>
+<div id="welcome-message-edit" style="display: none;">
+<form method="post" action="<TMPL_VAR NAME=SCRIPT_URL>">
+<input type="hidden" name="__mode" value="update_welcome_message" />
+<input type="hidden" name="blog_id" value="<TMPL_VAR NAME=BLOG_ID>" />
+<input type="hidden" name="magic_token" value="<TMPL_VAR NAME=MAGIC_TOKEN>" />
+
+<textarea id="welcome-message-text" name="welcome-message-text" rows="32" cols="44" style="margin: 0 0 10px 0;"><TMPL_IF NAME=WELCOME><TMPL_VAR NAME=WELCOME><TMPL_ELSE>&lt;h4&gt;<MT_TRANS phrase="Welcome to [_1]." params="<TMPL_VAR NAME=BLOG_NAME ESCAPE=HTML>">&lt;/h4&gt;
+
+&lt;p&gt;<MT_TRANS phrase="You can post to and manage your weblog by selecting an option from the menu located to the left of this message.">&lt;/p&gt;
+
+&lt;p&gt;<MT_TRANS phrase="If you need assistance, try:">&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="<TMPL_VAR NAME=HELP_URL>"><MT_TRANS phrase="Movable Type User Manual">&lt;/a&gt;&lt;br /&gt;
+&lt;a href="<TMPL_VAR NAME=MT_SUPPORT>"&gt;<MT_TRANS phrase="Movable Type Technical Support">&lt;/a&gt;&lt;br /&gt;
+&lt;a href="http://www.movabletype.org/support/"&gt;<MT_TRANS phrase="Movable Type Support Forum">&lt;/a&gt;&lt;/p&gt;</TMPL_IF></textarea>
+<input type="submit" name="save" value="<MT_TRANS phrase="Save Changes">" title="<MT_TRANS phrase="Save Changes"> (s)" accesskey="s" />
+<input type="button" name="cancel" value="<MT_TRANS phrase="Cancel">" onclick="welcomeMessageToggle(); return false;" />
+</form>
+</div>
+
+<TMPL_IF NAME=PLUGIN_ACTION_LOOP>
+<div class="box" id="plugin-actions-box">
+<h4><MT_TRANS phrase="Plugin Actions"></h4>
+<div class="inner">
+<ul>
+<TMPL_LOOP NAME=PLUGIN_ACTION_LOOP>
+<li><a href="<TMPL_VAR NAME=PAGE>;from=blog_home;blog_id=<TMPL_VAR NAME=BLOG_ID>"><TMPL_VAR NAME=LINK_TEXT></a></li>
+</TMPL_LOOP>
+</ul>
+</div>
+</div>
+</TMPL_IF>
+
+</div>
+
+<TMPL_INCLUDE NAME="footer.tmpl">

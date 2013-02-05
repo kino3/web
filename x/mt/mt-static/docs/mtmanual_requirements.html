@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="doc-styles.css" type="text/css"/>
+<title>Movable Typeユーザー・マニュアル: システム要件</title>
+</head>
+
+<body>
+<h1 id="__index__">Movable Typeユーザー・マニュアル: システム要件</h1>
+<p><a href="mtmanual.html">&laquo; 目次</a></p>
+<ul>
+	<li><a href="#environment">必要な環境</a></li>
+	<li><a href="#requirements">システム要件</a></li>
+	<li><a href="#perl">Perlモジュール</a></li>
+	<li><a href="#dynamic_publishing">ダイナミック・パブリッシング</a></li>
+</ul>
+
+<p>Movable Typeを利用するためには、以下の環境が必要です。</p>
+
+<div id="environment">
+<h2>必要な環境</h2>
+
+<div id="web_server">
+<h3>Perl CGI (Common Gateway Interface)スクリプトとPHPスクリプト(オプション)を実行できるウェブ(HTTP)サーバー</h3>
+<p>Movable Typeは、ウェブサーバーにインストールされ、ユーザーは標準のブラウザーでHTMLページを表示して、Movable Typeにアクセスします。 Movable Typeは、Perlプログラミング言語で書かれ、オプションでPHPを使ったダイナミック・コンテンツを生成することができます。 アプリケーションのサイズは約8MBですが、そのほか、エントリーを保存するのに25MB以上のハードディスク容量が必要です。</p>
+<p>Perl、PHP、およびウェブ・サーバー(Apache HTTP Server)は、Windowsのほか、LinuxなどのUnix系オペレーティング・システム、BSD系OS、およびMac OS Xで利用できます。 こうしたサーバーは、ほとんどのインターネット・サービス・プロバイダー(ISP)で無料で提供されています。</p>
+</div>
+
+<div id="client">
+<h3>FTPクライアント、またはシェル(telnetまたはSSH)アカウント</h3> 
+<p>これらのいずれかは、システムにMovable Typeをインストールし、運用を管理するために必要です。</p>
+</div>	
+
+<div id="browser">
+<h3>JavaScriptが使用できるウェブ・ブラウザー</h3>
+<p>Movable Typeは、ブラウザー・ベースのインターフェイスを使って、すべての機能にアクセスします。特別のソフトウェアをインストールしたり維持したりする必要がありません。 なお、最適な結果を得るため、最新バージョンのFireFoxブラウザーをお使いになることをお勧めします。 FireFoxは、<a href="http://www.mozilla-japan.org/products/firefox/">Mozilla Japan</a>から無料でダウンロードできます。</p>
+</li>
+</div>
+</div>
+
+<div id="requirements">
+<h2>システム要件</h2>
+
+<div id="perl_version">
+<h3>Perlバージョン5.004_05以降 (必須)。バージョン5.6.1以降 (推奨)。</h3>
+<p>Perlは、幅広いプラットフォームで実行でき、10年以上に渡ってインターネット開発の主流言語に選ばれています。 Movable Typeは、Perlバージョン5.004_05以降をサポートするプラットフォームであればどれでも起動できますが、最適な結果を得るために、バージョン5.6.1以降をお勧めします。</p>
+</div>
+
+<div id="database">
+<h3>Berkeley DB、MySQL、SQLite、またはPostgreSQLのいずれかのデータベース</h3>
+<p>Movable Typeは、データ保管用に複数のデータベースをサポートしており、ユーザーの環境に最適なデータベースが選べます。Berkeley DBは、エントリー数が少ない小規模なサイトには最適ですが、ある程度の規模を超えるとパフォーマンスに影響がでます。一般的には、MySQLをお勧めします。</p>
+</div>
+
+<div id="cpan_modules">
+<h3>外部(CPAN)Perlモジュール</h3>
+<p>Movable Typeは、Perlコミュニティの広範囲なオープン・ソースの土台の上に構築され、外部のPerlモジュールを多用しています。 これらのモジュールは無料で入手できるオープン・ソース・ソフトウェアで、<a href="http://search.cpan.org/">Comprehensive Perl Archive Network (CPAN)</a>からダウンロードできます。</p>
+</div>
+</div>
+
+<div id="perl">
+<h2>Perlモジュール</h2>
+<p>Movable Typeを稼動するには、以下のPerlモジュールが必要です。</p>
+<ul>
+	<li>CGI (バージョン2.8以降)</li> 
+	<li>HTML::Template (バージョン2.0以降)</li> 
+	<li>Image::Size</li>
+	<li>File::Spec (バージョン0.8以降)</li>
+	<li>CGI::Cookie</li>
+</ul>
+
+<p>そのほか、以下のデータベース・モジュールの1つが必要です。</p>
+<ul>
+	<li>DB_File</li> 
+	<li>DBI (バージョン1.21以降)</li>
+	<li>DBD::mysql</li>
+	<li>DBD::postgres (バージョン1.32以降)</li>
+	<li>DBD::SQLite</li>
+</ul>
+	
+<p>以下のオプション機能をサポートするPerlモジュールがあれば、Movable Typeの機能はさらに広がります。</p>
+<ul>
+	<li>HTML::Entities</li>
+	<li>LWP::UserAgent</li>
+	<li>SOAP::Lite (バージョン0.5以降)</li>
+	<li>File::Temp</li>
+	<li>Image::Magick</li>
+	<li>Storable</li>
+	<li>Crypt::DSA</li>
+	<li>MIME::Base64</li>
+	<li>XML::Atom</li>
+</ul>
+<p>これらのPerlモジュールは、Movable Typeシステム・チェックプログラム (mt-check.cgi) を実行することで、利用できることを確認できます。</p>
+</div>
+
+<div id="dynamic_publishing">
+<h2>ダイナミック・パブリッシング</h2>
+<p>ダイナミック・パブリッシングを利用するには、以下の環境が必要です。</p>
+<ul>
+	<li>PHP 4.0.6以降</li>
+	<li>Smarty Template Engine</li>
+	<li>ezSQLライブラリー</li> 
+</ul>
+<p>Smarty Template EngineとezSQLライブラリーは、Movable Typeのインストール時に設定されます。なお、ダイナミック・パブリッシングは、Berkeley DBではサポートしていません。</p>
+</div>
+
+<hr />
+
+<span class="copyright">Copyright &copy; 2001-2005 Six Apart, Ltd. All Rights Reserved.</span>
+</body>
+</html>

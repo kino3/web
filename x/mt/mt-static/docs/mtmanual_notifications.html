@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="doc-styles.css" type="text/css"/>
+<title>Movable Typeユーザー・マニュアル: 通知</title>
+</head>
+
+<body>
+<h1 id="__index__">Movable Typeユーザー・マニュアル: 通知</h1>
+<p><a href="mtmanual.html">&laquo; 目次</a></p>
+<ul>
+	<li><a href="#notifications">通知</a></li>
+</ul>
+<hr />
+
+<h2><a name="notifications"></a>通知</h2>
+<p>新しいエントリーを投稿した後、時々はあなたの読者にメールでその新しいエントリーについて知らせたいと思うことがあることでしょう。 Movable Typeの通知システムを利用すると、これが簡単にできます。 <em> mt-add-notify.cgi </em> プログラムを使って簡単な「新規投稿を通知」ボタンを加えると、自動的に通知リストにユーザーが追加されていきます。 この通知リストは、Movable Typeの「<em> 通知リストの編集 </em> 」を使うと手動でも、メールアドレスの追加や削除ができます。</p>
+<p>通知は、新しいエントリーを投稿しても自動的に送信されません。 読者に特定のエントリーについて通知するには、そのエントリーを選択して編集します。 「<em> おしらせを送信する </em> 」セクションで、送信するメッセージのテキストを入力します。 また、通知メールに、エントリーの概要や全文を含める場合は、右側の該当するチェックボックスをチェックします。 読者へのメールには、エントリーへのリンクの次に、入力したメッセージが表示されます。</p>
+<p>Movable Typeには、訪問者があなたの通知リストに自らを加えることができる簡単なCGIスクリプトが用意されています。 HTMLフォームを使って訪問者にメールアドレスを入力・提出してもらうと、訪問者が通知リストに加わります。 このスクリプトを使うには、以下のHTMLコードを、フォームを表示するテンプレートに挿入します。</p>
+<pre>
+&lt;form method="post" action="&lt;$MTCGIPath$>mt-add-notify.cgi">
+&lt;input type="hidden" name="blog_id" value="&lt;$MTBlogID$>" />
+&lt;input type="hidden" name="_redirect" value="&lt;$MTBlogURL$>" />
+&lt;input name="email" size="20" />
+&lt;input type="submit" value="add" />
+&lt;/form>
+</pre>
+<p>その後、テンプレートを保存してサイトを再構築します。</p>
+<p>なお、上記の&quot;_redirect&quot; パラメータの値は、あなたのブログの(設定に指定されている)URLにする必要があります。それは、ブログ・サイトのどのページのURLにしても有効ですが、たとえば、別のドメインのURLにすることなどはできません。</p>
+<p>そのほか、あなたのmt-config.cgiファイルに、検証用フレーズを定義する必要があります。これは、&quot;EmailVerificationSecret&quot; に設定しますが、他者が容易に推測できない言葉やフレーズにしてください。</p>
+<p><em> mt-add-notify.cgi </em> を使用する場合は、mt-config.cgi内に <a href="./mtmanual_configuration.html#item_emailverificationsecret">EmailVerificationSecret</a>を設定する必要があります。</p>
+<hr />
+
+<span class="copyright">Copyright &copy; 2001-2005 Six Apart, Ltd. All Rights Reserved.</span>
+</body>
+</html>

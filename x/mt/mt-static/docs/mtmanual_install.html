@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="doc-styles.css" type="text/css"/>
+<title>Movable Typeユーザー・マニュアル: Movable Typeの新規インストール</title>
+</head>
+
+<body>
+<h1 id="__index__">Movable Typeユーザー・マニュアル: Movable Typeの新規インストール</h1>
+<p><a href="mtmanual.html">&laquo; 目次</a></p>
+
+<p>新規にインストールする場合、次のステップで行います。</p>
+
+<div id="lists">
+<ol>
+<li><a href="#env">インストールに必要な環境を用意します。</a></li>
+<li><a href="#perl">ウェブサーバー上のPerlの実行環境を確認します。</a></li>
+<li><a href="#path">インストール先を決定します。</a></li>
+<li><a href="#download">最新版のソフトウェアをダウンロードします。</a></li>
+<li><a href="#extract">ダウンロードしたファイルをローカルのディレクトリで解凍し、Perlの実行環境にあわせ調整します。</a></li>
+<li><a href="#config-cgi">環境設定ファイル (mt-config.cgi) の内容を実行環境にあわせ調整します。</a></li>
+<li><a href="#upload">FTPプログラムでインストール先に転送します。</a></li>
+<li><a href="#check-cgi">システム・チェックプログラム (mt-check.cgi) で実行環境を確認します。</a></li>
+<li><a href="#setup">セットアッププログラムを実行します。</a></li>
+</ol>
+</div>
+
+<div id="env">
+<h2>必要な環境の準備</h2>
+<p>まずはじめに、Movable Typeを実行するために必要な以下の環境を準備します。環境についてご不明の点がある場合は、サーバーの管理者にご相談願います。</p>
+</div>
+
+<div id="perl">
+<h2>Perlの実行環境の確認</h2>
+<p>Movable Typeの機能のほとんどは、Perlスクリプト・プログラムとして実行します。ウェブ・サーバー上でPerlスクリプトを実行するために、Perlの実行環境へのパスを正しく指定する必要があります。Perlの実行環境へのパスは、ホスティング・サービスのサポート・ページなどを参照してください。もしくは、シェル(コマンド行)を実行できるアカウントを持っており、シェルに精通しているユーザーは、アカウントにログインした後、以下のコマンドを実行することもできます。</p>
+<pre><code>whereis perl</code></pre>
+<p>Movable Typeでは、<strong>/usr/bin/perl</strong>が初期値です。</p>
+</div>
+
+<div id="path">
+<h2>インストール先の決定</h2>
+<p>Movable TypeのPerlスクリプト・プログラムは、ウェブ・サーバーのCGIプログラムとして実行します。インストール先のディレクトリは、CGIプログラムが実行可能なディレクトリを設定します。ここでは、仮に<strong>apps</strong>ディレクトリとします。</p>
+</div>
+
+<div id="download">
+<h2>最新版のダウンロード</h2>
+<p>最新の配布パッケージは、<a href="http://www.movabletype.jp/get-mt.html">シックス・アパートのウェブサイト</a>からいつでもダウンロードできます。</p>
+</div>
+
+<div id="extract">
+<h2>ファイルの解凍と修正</h2>
+<p>ローカルに保存したパッケージを、解凍プログラムで適切なディレクトリに解凍します。先ほど確認したPerlの実行環境が初期値と異なる場合は、テキスト・エディタプログラムで、拡張子がcgiのファイルの1行目を修正してください。修正する際に<strong>-w</strong>を誤って削除しないように注意してください。</p>
+</div>
+
+<div id="config-cgi">
+<h2>環境設定ファイルの修正</h2>
+<p>インストール先やデータベースの設定等を、全て環境設定ファイル (mt-config.cgi) に以下のように指定します。</p>
+<ol>
+<li>パッケージを解凍したディレクトリ内に、<strong>mt-config.cgi-original</strong>ファイルがあります。このファイルを<strong>mt-config.cgi</strong>にコピーします。</li>
+<li><strong>mt-config.cgi</strong>をテキストエディタ等で修正します。行頭に#がある行は、コメント行です。必要に応じて#をはずしてください。</li>
+<li>CGIPath (28行目) に、Perlスクリプトを保管するディレクトリパスを設定します。本例では、<strong>http://www.mt-site.jp/apps/</strong>となります。</li>
+<li>次にデータベース・サーバーへのアクセス情報を設定します。利用するデータベースの環境にあわせ、31～71行目についてコメントをはずし、環境を記述します。57行目の<strong>SQLSetNames</strong>は、MySQL4.1やPostgreSQL8等のキャラクターセットを明示的に指定するデータベースを利用する場合コメントをはずします。</li>
+<li>StaticWebPath (93行目) に、CGIPathで指定したパスに<strong>mt-static</strong>を追加します。本例では、<strong>http://www.mt-site.jp/apps/mt-static/</strong>となります。</li>
+<li>TempDir (211行目) に、Movable Typeが生成するテンポラリー・ファイルの保存場所を指定します。</li>
+<li>PublishCharset (272行目) に、Movable Typeが生成するHTMLファイルのキャラクターセットを指定します。通常はUTF-8ですが、EUCを指定する場合は<strong>euc-jp</strong>を、シフトJISを指定する場合は<strong>shift_jis</strong>を指定します。</li>
+<li>利用の環境にあわせ、他の項目もカスタマイズします。</li>
+<li>テキストエディタを終了し、保存します。</li>
+</ol>
+</div>
+
+<div id="upload">
+<h2>アップロード</h2>
+<p>パッケージを解凍したディレクトリの内容を、ウェブ・サーバーのインストール先 (環境設定ファイルのCGIPathで指定している場所) に、FTPクライアントソフト等でアップロードします。アップロードの際は、mt-static/imagesディレクトリ内のファイルはバイナリーモードで、それ以外はASCIIモードでアップロードします。アップロード後、インストール先のディレクトリ内のCGIスクリプト (.cgiで終わる名前のファイル) の権限を<strong>755</strong>に設定します。</p>
+</div>
+
+<div id="check-cgi">
+<h2>システム・チェック</h2>
+<p>今までの作業について、システム・チェックプログラム (mt-check.cgi) を実行して最終確認を行います。本例では、<strong>http://www.mt-site.jp/apps/mt-check.cgi</strong>になります。実行の結果、「準備が整いました。」というメッセージを表示した場合、無事に作業が終了したことになります。このメッセージが表示されなかった場合、何らかの作業が完了していないので、続けて作業を行います。</p>
+</div>
+
+<div id="setup">
+<h2>セットアッププログラムの実行</h2>
+<p>システム・チェックが正常に終了したら、インストール先にあるセットアッププログラムを実行します。セットアッププログラムは、インストール先の<strong>index.html</strong>の「ログイン」リンクをクリックして実行します。本例では、<strong>http://www.mt-site.jp/apps/index.html</strong>になります。セットアッププログラムが正常に終了すると、「ログイン画面」が表示されます。これでインストールは終了です。お疲れ様でした。</p>
+</div>
+
+<hr />
+
+<span class="copyright">Copyright &copy; 2001-2005 Six Apart, Ltd. All Rights Reserved.</span>
+</body>
+</html>

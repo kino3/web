@@ -1,0 +1,434 @@
+@charset "UTF-8";
+
+/*
+name: HINAGATA 3Column Liquid Default
+designer: Taichi Kaminogoya
+designer_url: http://hinagata.biz/
+developer: Taichi Kaminogoya
+developer_url: http://2xup.org/
+*/
+
+html {
+  background-color: #B7BCC3;
+}
+
+body {
+  background: transparent url(h3l-default-body.jpg) repeat-y top left;
+  color: #312E11;
+  max-width: 1500px;
+  min-width: 750px;
+  font-family: sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, .datetime, .postdata, .postinfo, .powered, address, blockquote, abbr, acronym, dfn {
+	font-family: "Lucida Grande", "Trebuchet MS", Trebuchet, Verdana, Arial, sans-serif;
+}
+
+body.layout-one-column {
+  background-image: url(h3l-default-body-single.jpg);
+}
+
+a {
+  color: #036;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #069;
+  text-decoration: underline;
+}
+
+ul.inline {
+  margin: 0;
+  padding: 0;
+}
+
+ul.inline li {
+  display: inline;
+}
+
+div#main {
+  margin: 0 -215px 0 0;
+  float: left;
+  clear: left;
+  width: 100%;
+}
+
+div#content h2, 
+div#menu h2,
+div#links h2,
+p.skip-nav, 
+div#notice h2, 
+hr {
+  display: none;
+}
+
+div#container {
+  background: transparent url(h3l-default-body.jpg) repeat-y top left;
+}
+
+body.layout-one-column div#container {
+  background: transparent url(h3l-default-body-single.jpg) repeat-y top left;
+}
+
+div#header {
+  height: 170px;
+  float: none;
+  clear: both;
+  width: 100%;
+  background: transparent url(h3l-default-header.jpg) no-repeat top left;
+}
+
+div#header h1 {
+  background: transparent url(h3l-default-h1.jpg) no-repeat top right;
+  height: 170px;
+  float: none;
+  clear: both;
+  width: 100%;
+  font-size: 150%;
+}
+
+div#header h1 a {
+  position: relative;
+  top: 65px;
+  left: 50px;
+  color: black;
+  font-weight: bold; 
+}
+
+div#header h1 a:hover {
+  text-decoration: none;
+  color: black;
+  background-color: transparent;
+}
+
+p.blog-description {
+  font-size: 90%;
+  position: absolute;
+  top: 95px;
+  left: 50px;
+}
+
+div#content {
+  margin: 0 0 0 -215px;
+  float: right;
+  clear: right;
+  width: 100%;
+  color: inherit;
+  background: transparent url(h3l-default-html.jpg) repeat-y top right;
+}
+
+div#content div.section {
+  margin: 0 215px 2em 215px;
+  float: none;
+  clear: both;
+}
+
+body.layout-one-column div#content {
+  margin: 0;
+  float: none;
+  border: none;
+  background: transparent url(h3l-default-html-single.jpg) repeat-y top right;
+}
+
+body.layout-one-column div#content div.section {
+  margin: 0 35px;
+}
+
+div#content div.section div.section,
+div#content div.section div.section div.section {
+  margin: 2em 0 0 0;
+}
+
+p.datetime {
+  color: #BEEB11;
+  font-weight: bold;
+  margin: 0 215px 0.2em 215px;
+  padding: 0;
+}
+
+body.layout-one-column p.datetime {
+  margin: 0 0 0.2em 35px;
+}
+
+div#content div.section h3 {
+  font-weight: bold;
+  margin-bottom: 0.5em;
+  color: #312E11;
+  font-size: 125%;
+}
+
+div#content div.section h3 a {
+  color: #312E11;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+div#content div.section h3 a:hover {
+  color: #312E11;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+div#content div.section blockquote {
+  border: 1px solid #312E11;
+  background: transparent url(h3l-default-blockquote.gif) repeat top left;
+  font-size: 90%;
+}
+
+div#content div.section ins {
+  border-color: #ACB560;
+}
+
+div#content div.section pre {
+  background-color: #E1DEBD;
+}
+
+p.extended {
+  text-align: right;
+}
+
+ul.postdata {
+  margin: 0;
+  text-align: right;
+  font-size: 90%;
+}
+
+ul.postinfo {
+  text-align: right;
+  font-size: 90%;
+  margin: 1em 0 0 0;
+  border-top: 1px dotted black;
+}
+
+ul.postdata li {
+  padding: 0;
+  margin: 0 0.2em;
+}
+
+ul.postinfo li {
+  padding: 0.2em 0 0 0;
+  margin: 0 0.2em;
+}
+
+div#comments div.section {
+  padding-left: 1em;
+}
+
+div#comments div.section {
+  padding-left: 1em;
+  font-size: 95%;
+}
+
+div#trackbacks,
+div#comments-open {
+  padding: 1.5em 0;
+}
+
+div#trackbacks p, 
+div#comments-open p,
+div#comments-open dl,
+div#comments-open ul {
+  font-size: 90%;
+}
+
+div#content div.section h4 {
+  margin-bottom: 0.5em;
+  font-weight: bold;
+  font-size: 105%;
+}
+
+div#trackbacks h4,
+div#comments h4,
+div.comments-open h4 {
+  margin-bottom: 0.5em;
+  color: #BEEB11;
+  font-weight: bold;
+}
+
+input#trackback-url {
+  width: 25em; 
+  _width: 30em;
+  max-width: 100%;
+  display: block;
+}
+
+body.layout-one-column input#trackback-url {
+  display: inline;
+}
+
+div#comments ul.postinfo li a.commenter-profile img {
+  margin: 0;
+  padding: 0;
+  height: 15px ! important;
+  width: 22px !important;
+}
+
+ul.postinput {
+  text-align: center;
+}
+
+ul.postinput li {
+  margin: 0 0.2em;
+}
+
+div#menu {
+  float: left;
+  clear: left;
+  width: 195px;
+  font-size: 95%;
+  background: transparent url(h3l-default-body.jpg) repeat-y top left;
+}
+
+div#links {
+  float: right;
+  clear: right;
+  width: 195px;
+  font-size: 95%;
+  background: transparent url(h3l-default-html.jpg) repeat-y top right;
+}
+
+div#menu div.section {
+  margin: 0 0 10px 30px;
+}
+
+div#links div.section {
+  margin: 0 30px 10px 0;
+}
+
+div#menu div.section h3,
+div#links div.section h3 {
+  font-weight: bold;
+  color: #312E11;
+  font-size: 100%;
+}
+
+div#menu div.section img,
+div#links div.section img {
+  margin: 0.5em 0 0 0.5em;
+}
+
+div#menu div.section p,
+div#links div.section p {
+  margin: 0 0.5em;
+}
+
+div#menu div.section ul, 
+div#menu div.section ol,
+div#links div.section ul, 
+div#links div.section ol {
+  margin: 0.5em 1em 0.5em 1em;
+  font-size: 95%;
+}
+
+div#menu div.section li,
+div#links div.section li {
+  margin:0 0 0.3em 0;
+}
+
+div#menu div.section ul ul,
+div#menu div.section ol ol,
+div#menu div.section ol ul,
+div#links div.section ul ul,
+div#links div.section ol ol,
+div#links div.section ol ul {
+  margin: 0.1em 0 0.1em 1em;
+}
+
+div#menu div.section ul ul li,
+div#menu div.section ol ol li,
+div#menu div.section ol ul li,
+div#links div.section ul ul li,
+div#links div.section ol ol li,
+div#links div.section ol ul li {
+  margin: 0;
+}
+
+div#menu div.section ul,
+div#menu div.section ol,
+div#links div.section ul,
+div#links div.section ol {
+  list-style-type: none;
+}
+
+div#recent-comments ul li ul {
+  margin: 0 0 0.2em 0.5em;
+}
+
+div#recent-comments ul li ul li {
+  list-style-type: disc;
+  list-style-position: inside;
+}
+
+div#recent-entries ol {
+  padding-left: 0.5em;
+}
+
+div#recent-entries ol li {
+  list-style-type: disc;
+}
+
+div#recent-trackback ul li ul {
+  border-left: 1px solid #939871;
+  margin-left: 0;
+  padding-left: 0.3em;
+}
+
+div#search-form form {
+  margin: 0.5em 0;
+  padding: 0 0.5em;
+  text-align: center;
+}
+
+div#search-form form input#search {
+  width: 85px;
+  display: inline;
+}
+
+ul.entry-nav {
+  text-align: center;
+  margin: 0 215px 1em 215px;
+}
+
+body.layout-one-column ul.entry-nav {
+  margin-right: 0;
+  margin-left: 0;
+}
+ul.entry-nav li {
+  font-size: 90%;
+  margin: 0 0.2em;
+}
+
+div#footer {
+  float: none;
+  clear: both;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  height: 70px;
+  background: transparent url(h3l-default-footer.jpg) repeat bottom left;
+}
+
+div#footer ul.powered {
+  margin: 0;
+  text-align: center;
+  float: none;
+  clear: both;
+  font-size: 90%;
+  height: 70px;
+  background: transparent url(h3l-default-powered.jpg) no-repeat bottom right;
+}
+
+div#footer ul.powered li {
+  position: relative;
+  top: 15px;
+  padding: 0 0.2em;
+}
+
+address {
+  padding: 0.5em 0;
+  margin: 0;
+  font-size: 90%;
+  text-align: center;
+  background-color: #B7BCC3;
+}

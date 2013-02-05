@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="doc-styles.css" type="text/css"/>
+<title>Movable Typeユーザー・マニュアル: コメント</title>
+</head>
+
+<body>
+<h1 id="__index__">Movable Typeユーザー・マニュアル: コメント</h1>
+<p><a href="mtmanual.html">&laquo; 目次</a></p>
+<ul>
+	<li><a href="#comments">コメント</a>
+	<ul>
+		<li><a href="#comment_previewing">コメントの確認</a></li>
+		<li><a href="#comment_submission_errors">コメントの登録エラー</a></li>
+		<li><a href="#comment_management">コメントの管理</a>
+		<ul>
+			<li><a href="#registered_comments">登録者のコメント</a></li>
+			<li><a href="#comment_moderation">コメントの事前確認</a></li>
+		</ul>
+		</li>
+		<li><a href="#enabling_comment_registration">コメント登録のオン</a></li>
+	</ul>
+	</li>
+</ul>
+<hr />
+
+<h1><a name="comments"></a>コメント</h1>
+<p>Movable Typeにはコメント・システムが内蔵されています。 ブログの「<i>コメント</i>」エリアでは、既存のコメントを編集でき、「<i>エントリーの編集</i>」画面では、特定のエントリーに関連したコメントを表示できます。 どちらも、コメントを削除するには「<em> 削除 </em>」をクリックします。</p>
+<p>Movable Typeに搭載されているデフォルト・テンプレートはコメントに対応済みです。つまり、どのコメント・テンプレートを変更することなく、ブログでコメントを使える状態になっています。 デフォルト・テンプレートでは、コメントは、<i>メイン・インデックス</i>・テンプレートからリンクされたポップアップ・コメント・ウィンドウと、個別のアーカイブ・ページの両方に表示されます。 この設定を変更するには、該当するテンプレートを書き換えます。</p>
+<p>Movable Typeのコメント・システムは、以下の2つ方法のどちらか、あるいは両方で使用できます。</p>
+
+<ul>
+<li><strong><a name="item_Inline"></a>インライン</strong>
+<p>個別のエントリー・アーカイブ(「<a href="./mtmanual_archiving.html">アーカイブの設定</a>」を参照)を使うと、各アーカイブのページには、特定したエントリーのコメントが含まれます。 たとえば、以下のようなテンプレートを使うことができます。</p>
+
+<pre>
+&lt;p>&lt;font class="title">&lt;$MTEntryTitle$>&lt;/font>&lt;/p>
+&lt;$MTEntryBody$>
+&lt;MTComments>
+&lt;$MTCommentBody$>
+&lt;font class="post">Posted by &lt;$MTCommentAuthorLink$>.&lt;/font>&lt;br>&lt;br>
+&lt;/MTComments>
+</pre>
+
+<p>実際、デフォルトの「<i>エントリー・アーカイブ</i>」には同じ構造が含まれます。</p>
+</li>
+<li><strong><a name="item_Popup_Windows"></a>ポップアップ・ウィンドウ</strong>
+<p>アーカイブの1ページに2つ以上のエントリーを持つような種類のアーカイブを使う場合、コメントをインラインにするのはあまり意味がありません。 そのような場合のために、Movable Typeでは動的に生成されるコメント用ポップアップ・ウィンドウを利用できます((&amp;agrave; la Blog Voicesなど)。 Movable Typeが搭載しているデフォルト・テンプレートは、ポップアップ・コメントを自動的に利用します。これは<i>コメント・リスト</i>のテンプレートの以下のような記述によるものです。</p>
+
+<pre>
+&lt;MTComments>
+&lt;$MTCommentBody$>
+&lt;font class="post">Posted by &lt;$MTCommentAuthorLink$>.&lt;/font>&lt;br>&lt;br>
+&lt;/MTComments>
+</pre>
+
+<p>以下のJavaScript関数を使って、コメント・ポップアップ・ウィンドウを開きます。</p>
+
+<pre>
+&lt;script type=&quot;text/javascript&quot;>
+&lt;!--
+function OpenComments (c) {
+    window.open(c,
+               'comments',
+               'width=480,height=480,scrollbars=yes,status=yes');
+}//-->
+&lt;/script>
+</pre>
+
+<p>以下のコードを使ってJavaScript関数を呼び出します。</p>
+
+<pre>
+&lt;MTEntryIfAllowComments>
+&lt;a href="&lt;$MTCGIPath$>&lt;$MTCommentScript$>?entry_id=&lt;$MTEntryID$>" onclick="OpenComments(this.href); return false">Comments (&lt;$MTEntryCommentCount$>)&lt;/a>
+&lt;/MTEntryIfAllowComments>
+</pre>
+</li>
+</ul>
+
+<p>もちろん、どちらの場合でも、ユーザーに新しいコメントを入力するためのフォームを提供したいでしょう。 以下はそうしたフォームの一例です。</p>
+
+<pre>
+&lt;form method="post" action="&lt;$MTCGIPath$>&lt;$MTCommentScript$>">
+&lt;input type="hidden" name="entry_id" value="&lt;$MTEntryID$>">
+名前: &lt;input name="author">&lt;p>
+メールアドレス: &lt;input name="email">&lt;p>
+URL: &lt;input name="url">&lt;p>
+本文: &lt;textarea name="text" rows="10" cols="50">&lt;/textarea>&lt;p>
+&lt;input type="submit" name="preview" value="PREVIEW">
+&lt;input type="submit" name="post" value="POST">
+&lt;/form>
+</pre>
+
+<p>スタティック/インライン・コメントを使う場合は、上のサンプル・フォームに”hidden”(隠れた)インプット用フィールドを1つ以上加える必要があります。</p>
+
+<pre>
+&lt;input type="hidden" name="static" value="1">
+</pre>
+
+<p>このコードはインライン・コメントを使っているときに使うものです。新しいコメントが投稿された後、コメント・システムは、ブログのエントリー・アーカイブおよびインデックス・ページを強制的に再構築します。</p>
+<p>インライン・コメントまたはポップアップ・コメントのどちらを使う場合も、新しいコメントが追加されるとインデックス・ページは再構築されます。これはエントリーのコメント数のカウントを更新するためです(「<a href="./mtmanual_tags.html">テンプレートのタグ</a>」の「<em> MTEntryCommentCount </em>タグ」を参照)。 インライン・コメントを使うと、エントリーのアーカイブ・ページが再構築されます。これは新しいコメントをエントリー別のエントリー・アーカイブ・ページに加えるためです。</p>
+
+<h2><a name="comment_previewing"></a>コメントの確認</h2>
+<p>Movable Typeにはコメントの確認(プレビュー)機能が搭載されており、これを利用してサイトの訪問者は投稿する前にコメントを確認することができます。 確認機能は、システム標準のデフォルト・テンプレートにより変更できます。この機能を削除したい場合は、コメント・フォームから「<em> 確認 </em>」ボタンを削除します。 コメントの確認のレイアウトは「<em> コメント・プレビュー </em>」を使って定義します。 <em> &lt;$MTCommentPreview*$> </em>タグをグローバル・タグ属性の<em> encode_html </em>と共に使うと、編集可能なコメント確認のフォームを作成することができます。このフォームを使うと、ユーザーは、コメントの確認と編集をしてから、コメントを投稿できます。 デフォルト・テンプレートの中に編集可能なコメント確認のテンプレート例があります。</p>
+<p>編集可能なコメント確認のテンプレートを作成するときには、常に次の“hidden”(隠れた)インプット用フィールドを「<em> コメント・プレビュー </em>」と「<em> コメント・エラー </em>のテンプレート」に貼り付けてください。</p>
+
+<pre>
+&lt;input type="hidden" name="static" value="&lt;$MTCommentPreviewIsStatic$>">
+</pre>
+
+<p>これは、ユーザーがコメントを個別のアーカイブから投稿しているか、コメント・ポップアップ・ウィンドウから投稿しているかをシステムに告げる魔法のようなタグで、コメントの投稿後、投稿ユーザーを対応するページに導きます。</p>
+<p>標準の&lt;MTComments>コンテナ・タグを使うと、エントリーに投稿された今までのコメントをすべて一覧表示できます。</p>
+
+<pre>
+Previous comments:
+&lt;MTComments>
+&lt;$MTCommentBody$>
+Posted by &lt;$MTCommentAuthorLink$> at &lt;$MTCommentDate$>
+&lt;/MTComments>
+</pre>
+
+<h2><a name="comment_submission_errors"></a>コメントの登録エラー</h2>
+<p>コメントの投稿時にエラーが生じることがあります。たとえば、匿名のコメントを承認しない設定で、ユーザーが名前やメールアドレスを提供しなかった場合などです。こうしたエラーの発生時に表示されるエラー・ページは、「<em> コメント・エラーのテンプレート </em>」を使うとカスタマイズできます。 このテンプレートを使うと、コメント投稿時のエラーをユーザー自身が修正してコメントを再投稿(もしくは確認)できるフォームを提供できます。 デフォルト・テンプレートの中には、「<em> コメント・エラーのテンプレート </em>」の一例があります(「<a href="http://www.movabletype.jp/default_templates.shtml">http://www.movabletype.jp/default_templates.shtml</a>」)。</p>
+
+<h2><a name="comment_management"></a>コメント管理</h2>
+<p>コメントは、ブログの左側のメニューにある「コメント」ボタンをクリックして管理します。 この画面にはブログのコメントが日付順にすべて表示されており、1ページずつ表示することができます。 各コメントの横には、登録されたコメント投稿者(コメント投稿者)による投稿かどうか、そして登録されたコメント投稿者の場合は、コメント投稿者の状態を示すマークが付いています。 未登録のコメント投稿者による投稿の場合、マークはコメントが承認待ちかどうかを示します。</p>
+<p>この画面ではまた、コメント投稿者の承認・拒否、および事前確認されるコメントの承認・拒否を指定できます。 この機能は、「ブログの設定」で「未登録者からのコメントを受け入れる」または「未登録者からのコメントを事前承認する」をオンにしている場合に役立ちます。</p>
+<p>この画面では、各コメントの横にあるチェックボックスをチェックして、画面下部の「削除」ボタンをクリックすると、チェックされたコメントを削除できます。</p>
+
+<h3><a name="registered_comments"></a>登録者のコメント</h3>
+<p>登録者のコメントだけを許可するサイトでは、新しいコメント投稿者が初めてコメントを投稿するとき、そのコメント投稿者の承認を指定できるオプションがあります。 コメント投稿者が承認されるまで、そのコメント投稿者のコメントはブログに表示されませんが、承認後は直ちに表示されます。 このオプションを利用すると、あなたは個々のコメントを管理することなく、サイトに投稿してくる人々のコミュニティを管理できます。</p>
+<p>コメント・リストの画面には、新しく登録したコメント投稿者の横に色付きのボタンがあります。これを使うと、「ユーザー承認」か「停止」のどちらかを選択できます。 承認すると、そのコメント投稿者の現在までのコメントがすべてブログに表示され、以降のコメントも直ちに表示されるようになります。 停止すると、そのコメント投稿者の現在までのコメントはブログから削除され、将来のコメントも表示されなくなります。</p>
+<p>一度コメント投稿者を承認または停止しても、後からそのコメント投稿者のステータスを変更できます。 コメント・リストの画面に戻ると、コメント投稿者の名前の横にボタンが表示されています。これを利用すると、そのコメント投稿者の<i>将来の</i>コメントを承認または停止できます。 ユーザーがいったん承認または停止されると、それ以降に「承認」または「停止」と指定しても現在までのコメントには影響しません。影響するのは、将来、投稿されるコメントに対してだけです。</p>
+<p>登録されたコメント投稿者はブログの「<i>コメント投稿者</i>」エリアにも一覧表示されています。 この画面では、たとえコメント投稿者からのコメントがない場合でも、常にそのコメント投稿者を承認または停止できます。</p>
+
+<h3><a name="comment_moderation"></a>コメントの事前確認</h3>
+<p>未登録者からのコメントを受け付ける設定にしている場合でも、投稿されるコメントは管理したいときがあるでしょう。 コメントの事前確認をオンにすると、あなたがコメントを承認するまで、そのコメントはサイトに表示されません。</p>
+<p>事前確認の対象となるコメントを確認するには、「コメント」画面に行き、承認するコメントの横にある「コメントを掲載する」ボタンをクリックします。</p>
+
+<h2><a name="enabling_comment_registration"></a>コメント登録のオン</h2>
+<p>登録ユーザーのコメントを受け入れるには、「<i>ブログの設定</i>」の「<i>設定</i>」にアクセスし、「登録されたコメント投稿者のコメントは許可する」チェックボックスを選択します。 すると、このチェックボックスに属する別のチェックボックスと入力フィールドが表示されます。</p>
+<p>そのとき表示されるフィールドには、TypeKeyトークンの挿入が必要です。 無料のTypeKeyアカウントに登録するには、TypeKeyのウェブサイト、www.typekey.comにアクセスします。 <i>トークン</i>は20文字から成る文字列で、TypeKey認証サービスが割り振るあなたのブログのIDになります。 そのほか、TypeKeyにあなたのブログのURLを通知する必要があります そのためにはTypeKeyアカウントにログインし、画面の指示に従ってください。</p>
+<p>ほかのコメント登録オプションについての詳細は、「<a href="./mtmanual_weblog_config.html#item_accept_comments_from_registered_visitors">コメント登録の設定</a>」を参照してください。</p>
+
+<hr />
+
+<span class="copyright">Copyright &copy; 2001-2005 Six Apart, Ltd. All Rights Reserved.</span>
+</body>
+</html>

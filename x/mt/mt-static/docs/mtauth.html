@@ -1,0 +1,142 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="doc-styles.css" type="text/css"/>
+<title>Movable Typeユーザー・マニュアル: Movable Typeのコメント投稿者登録用認証サービスの作成</title>
+</head>
+
+<body>
+<h1 id="__index__">Movable Typeユーザー・マニュアル: Movable Typeのコメント投稿者登録用認証サービスの作成</h1>
+<p><a href="mtmanual.html">&laquo; 目次</a></p>
+<ul>
+	<li><a href="#summary">サービスの概要</a></li>
+	<li><a href="#the_user_experience">ユーザーがたどるステップ</a></li>
+	<li><a href="#the_user_model">ユーザーのモデル</a></li>
+	<li><a href="#configuring_movable_type">Movable Typeの設定</a></li>
+	<li><a href="#parameters_passed_by_the_client">クライアントから渡されるパラメータ</a></li>
+	<li><a href="#parameters_for_the_authentication_response">認証応答のパラメータ</a>
+	<ul>
+		<li><a href="#response_parameters_in_version_1.1">バージョン1.1の応答パラメータ</a></li>
+		<li><a href="#response_parameters_in_version_1">バージョン1の応答パラメータ</a></li>
+	</ul>
+	</li>
+	<li><a href="#format_of_the_dsa_key">DSA鍵のフォーマット</a>
+	<ul>
+		<li><a href="#hidden_email_addresses">メールアドレスの保護</a></li>
+	</ul>
+	</li>
+	<li><a href="#encoding_issues">エンコードの問題</a></li>
+	<li><a href="#references">参照サイト</a></li>
+</ul>
+<hr />
+
+<h2><a name="summary"></a>サービスの概要</h2>
+<p>Movable Type 3.0は、コメント管理において新しい機能群を提供しています。そのひとつに、外部のシステム経由で、ユーザーを認証するインタフェースがあります。シックス・アパートの所有するTypeKeyシステムは、認証システムの一例ですが、他の認証システムをMovable Typeのために作ることも可能です。</p>
+<p>このドキュメントは、TypeKeyの代わりになるカスタムの認証サービスを開発する場合に使うインタフェースを規定しています。</p>
+<p>システムの核となる部分は、DSA(Digital Signature Algorithm [1]、デジタル署名アルゴリズム)とSHA1(Secure Hash Algorithm、セキュア・ハッシュ・アルゴリズム)関数から成ります。 認証サービスは秘密鍵を持ち、インストールしたMovable Typeはそれに対応した公開鍵を持ちます。 認証サービスは、1人のユーザーを認証すると、そのユーザーのプロファイル情報とその情報のデジタル署名を、インストールしたMovable Typeに送ります。 Movable Typeは公開鍵を使って、その署名を確認し、それが正しい場合はブラウザのCookieを、再び同じユーザーを確認できるようにセットします。</p>
+<p>代替の認証サービスを作成するには、下記の呼び出しの規則に従ったHTTPハンドラ群が必要となります。 代替の認証サービスを使うには、「Movable Typeの設定」のセクションにあるMovable Typeのパラメータを設定する必要があります。</p>
+<hr />
+
+<h2><a name="the_user_experience"></a>ユーザーがたどるステップ</h2>
+<p>通常、ユーザーはMovable Type (MT)のコメント・ページから開始します。</p>
+<p>未定</p>
+<p>MTコメント・ページ -> 認証のためのログイン -> 認証のための登録 -> MTコメント・ページ -> 認証サービスからのログアウト -> MTコメント・ページ</p>
+<hr />
+
+<h2><a name="the_user_model"></a>ユーザーのモデル</h2>
+<p>認証サービスは、<a href="#item_name"><em> name </em> </a>という固有のキーで同定される複数のユーザーのデータを保管しています。 nameは、50半角文字以下のテキストから成り、ASCIIでエンコードされ、文字セット[A-Za-z0-9_]を使っています。 認証サービスはまた、各ユーザーについて、以下のフィールドの情報を保管します。</p>
+<ul>
+<li><strong><a name="item_nick"></a>nick</strong>
+<p>人間が読めるユーザーの名前。 HTMLでエンコードされ、Unicodeの文字セットから成る文字列にしてください。</p>
+</li>
+</ul>
+<hr />
+
+<h2><a name="configuring_movable_type"></a>Movable Typeの設定</h2>
+<p>外部の認証システムは、以下に記載するいくつかのmt-config.cgiの設定オプション使って、Movable Typeのインタフェースにアクセスします。</p>
+<ul>
+	<li><strong><a name="item_SignOnURL"></a>SignOnURL</strong>
+	<p>これは、ユーザーが認証サービスにサインオンするウェブ・インタフェースの基本的なURLです。このリンクがコメント・ページに表示され、そこからユーザーはサインオンできます。</p>
+	<p>Movable Typeは、CGIパラメータの<em> _return </em> を加えます。このパラメータの値は、ログインが完了したときに戻るURLです。<em> _return </em> パラメータは、認証サービスによって渡されたDSA署名[2]を復元(デコード)するMovable Typeのハンドラを指します。 認証サービスが渡すべき引数は、下記の「<a href="#parameters for the authentication response">認証応答のパラメータ</a>」を参照してください。</p></li>
+	<li><strong><a name="item_SignOffURL"></a>SignOffURL</strong>
+	<p>これは、ユーザーがコメント・ページの<em> logout </em> リンクをクリックするときに、ユーザーのブラウザがアクセスするURLです。 認証サービスは、ユーザーのブラウザをログアウトの状態にリセットして、<em> _return </em> パラメータ値にアクセスするため、必要なことを行います。</p></li>
+	<li><strong><a name="item_RegKeyURL"></a>RegKeyURL</strong>
+	<p>通常、Movable Typeが署名を確認するのに使う公開鍵は、このURLからHTTPにロードされます。 こうしておくと、認証サービスの管理者は、必要に応じて、鍵のペアを、エンドユーザー側にインストールされたMovable Typeにアクセスせずに、更新できます。 このURLへのGETリクエストは、応答の本文に鍵を返し、鍵は簡単なフォーマットでシリアライズ(保存・送受信できる形式に)されます。このフォーマットに関しては、下記の「DSA鍵のフォーマット」をご覧ください。</p>
+	<p>URLからロードされた値は、Movable Typeで24時間キャッシュされます。</p></li>
+	<li><strong><a name="item_SignOnPublicKey"></a>SignOnPublicKey</strong>
+	<p>'RegKeyURL'の代わりとして、DSA公開鍵をこの設定値に直接、供給することができます。 このパラメータについては、「DSA鍵のフォーマット」をご覧ください。</p></li>
+	<li><strong><a name="item_IdentityURL"></a>IdentityURL</strong>
+	<p>これは、1人のユーザーの「プロファイル・ページ」を指す基本的なURLです。 完全なURLは以下のような形式を取ります。</p>
+	<pre>&lt;IdentityURL>/&lt;username></pre>
+	<p>この&lt;username>とはそのユーザーの固有の鍵で、認証サービスから供給された<a href="#item_name"><em> name </em> </a>パラメータから来ています(下記の「<a href="#parameters for the authentication response">認証応答のパラメータ</a>」を参照してください)。</p></li>
+</ul>
+<hr />
+
+<h2><a name="parameters_passed_by_the_client"></a>クライアントから渡されるパラメータ</h2>
+<p>認証サービスにユーザー・リンクを作成すると、Movable Typeは<em> v </em> という名前のCGIパラメータを含むようになります。このパラメータは、認証サービスが使うプロトコルのバージョンを指定します。 このパラメータがない場合は、1がセットされます。</p>
+<p>かなり古いバージョンのTypeKeyプロトコルのリクエストがあった場合、認証サービスがそのサポートを拒否することはできますが、現在も使用されているMovable Typeの以前のバージョンでその認証サービスを使えなくなる可能性があります。</p>
+<hr />
+
+<h2><a name="parameters_for_the_authentication_response"></a>認証応答のパラメータ</h2>
+<p>認証サービスは、ユーザーを認証すると、ブラウザを、CGIパラメータが追加された<em> _return </em> アドレスにリダイレクトします。 それらのCGIパラメータは、クライアントからの<em> v </em> というCGIパラメータが含むプロトコルのバージョンによって区別されます。<em> v </em> がない場合は、1の値が使われます。</p>
+
+<h2><a name="response_parameters_in_version_1.1"></a>バージョン1.1の応答パラメータ</h2>
+<ul>
+	<li><strong><a name="item_email"></a>email</strong>
+	<p>これはユーザーのメールアドレス、またはそのアドレスの一意のIDです。 メールアドレスをクライアント・アプリケーションに表示するかどうかは、認証システム側が決定します。 このフィールドが文字列&quot;mailto:&lt;email>&quot;のSHA1ハッシュ[3]である場合、Movable Typeのブログ所有者は、&lt;email>の値を使って、そのハッシュと合うユーザーを検索することができます。</p></li>
+	<li><strong><a name="item_name"></a>name</strong>
+	<p>このフィールドはユーザーの固有なログイン名を表示します。ログイン名は、認証サービスの範囲内で固有な値にする必要があります。 このログイン名は単に固有なプロファイル・ページへのリンクを作成するためだけに使います。それ以外の目的では通常、ウェブサイトのどこにも表示されません。ただし、Movable Typeのテンプレート作成者が別の目的で使う可能性はあります。</p></li>
+	<li><strong><a name="nick"></a>nick</strong>
+	<p>このフィールドが提供するのは、ユーザーの表示名(ニックネーム)です。この表示名とは、ユーザーがパブリックに使いたい名前を意味します。 これは固有でなくても構いません。 また、これはMovable Typeのブログに表示されます。</p></li>
+	<li><strong><a name="item_ts"></a>ts</strong>
+	<p>これは署名が生成されたときのタイプスタンプで、1970年1月1日 00:00:00(UTC)からの秒数で表示されます。 Movable Typeは、タイムスタンプがMovable Typeによるローカル時刻の「n」秒内に生成されたことを確認します。この「n」秒は、あまり大きな値ではありません。 これは、Movable Typeのサイトが、ntpなどを使って認証サービスと時刻が同期されている必要性を示しています。</p></li>
+	<li><strong><a name="item_sig"></a>sig</strong>
+	<p>この値は、Movable Typeが、上記のパラメータが信頼あるサービスから提供されたことを確認するために使う署名です。 この署名は、DSAアルゴリズムによって処理されます。DSAアルゴリズムは、<em> r </em> と<em> s </em> の2つの部分から成る値を生成します。 <a href="#item_sig"><em> sig </em> </a>パラメータの値は、base64方式[4]の<em> r </em> と<em> s </em> をコロンでつないだ表示形式を取ります。</p>
+	<pre>&lt;r-base64>:&lt;s-base64></pre>
+	<p>認証サービスによって署名される「メッセージ」は、数個の値をコロン2つでつないだ文字列から成ります。</p>
+	<pre>&lt;email>::&lt;name>::&lt;nick>::&lt;ts>::&lt;site token></pre>
+	<p>これらの値のすべては、上記のような形式で応答のcleartextにも与えられます。ただし、クライアントによって渡されたサイト・トークンは省かれます。 たとえば、ログインするユーザーが&quot;Napoleon Bonaparte&quot; &lt;<a href="mailto:napoleon@france.fr">napoleon@france.fr</a>で、'napster'というログイン名を持ち、2001-09-08 19:00:00 (エポックから1000000800秒後)にログインした場合、「sig」は以下の文字列の署名になります。</p>
+	<pre>napoleon@france.fr::Napolon Bonaparte::napster::1000000800::6jTGQ2MF1focBR5vODfC</pre></li>
+</ul>
+
+<h2><a name="response_parameters_in_version_1"></a>バージョン1の応答パラメータ</h2>
+<p>バージョン1のプロトコルは、サイト・トークンが応答署名に含まれないところを除いては、バージョン1.1とまったく同じです。 したがって、DSAアルゴリズムに渡される値は、以下のようになります。</p>
+<pre>&lt;email>::&lt;name>::&lt;nick>::&lt;ts></pre>
+<hr />
+
+<h2><a name="format_of_the_dsa_key"></a>DSA鍵のフォーマット</h2>
+<p>DSAの公開鍵は、p、q、g、およびpub_keyの4つのフィールドから成ります。 Movable Typeは、DSA鍵を検索するとき、10進法の数字から成る４つの各フィールドが1つのスペースで区切られ1行につらなっている値を探します。 各フィールドは、フィールド名と'='で始まります。 以下に例を挙げます。</p>
+<pre>
+p=11671236708387678327224206536086899180337891539414163231548040398520841845883184000627860280911468857014406210406182985401875818712804278750455023001090753&nbsp;g=8390523802553664927497849579280285206671739131891639945934584937465879937204060160958306281843225586442674344146773393578506632957361175802992793531760152&nbsp;q=1096416736263180470838402356096058638299098593011&nbsp;pub_key=10172504425160158571454141863297493878195176114077274329624884017831109225358009830193460871698707783589128269392033962133593624636454152482919340057145639
+</pre>
+
+<h2><a name="hidden_email_addresses"></a>メールアドレスの保護</h2>
+<p>Movable Type 3では、認証サービスで、投稿者のIDを提供しながら、かつ、その投稿者のメールアドレスを保護する機能が可能になりました。 この機能をオンにすると、認証サービスはメールアドレスをMovable Typeに渡さず、その代わりに、メールアドレスに基づき一方向性のハッシュ関数によって処理された値を渡します。</p>
+<p>例を挙げてみましょう。 あなたは、ある投稿者(Luke)のメールアドレスを渡さない認証システムを使っているとします。 あるとき、あなたが知らないコメント投稿者があなたのサイトに来て、”Luke Skywalker”という名前を使いました。 あなたはそのコメントを読み、それがトピックに関連していたので、彼をコメント投稿者として承認したとします。 しばらくして、あなたは、別のコメントを受け取りました。その内容は、悪意に満ち、トピックにも外れていました。そしてLuke Skywalkerという名前がコメント投稿者に使われていました。 これは前のコメント投稿者と同じ人なのでしょうか？ それを調べるために、あなたはMovable Typeの「コメント」画面に行き、最近の"Luke Skywalker”によるコメントを検索します。 特定のユーザーのコメントをすべて検索するには、そのユーザーの名前の隣にある虫めがねアイコンをクリックします。 彼が時には異なる名前を使っていたとしても、そのアカウントから投稿されたコメントは、この検索の結果、すべて表示されます。</p>
+<p>さて、別の一例です。あるとき、Groverという人があなたのサイトに投稿しました。そして、あなたはこの人があなたの友達(<a href="mailto:grover@sesamestreet.com.">grover@sesamestreet.com</a>)かどうか知りたいとします。 この場合は、コメント画面の検索ボックスにそのメールアドレスを入力すると、メールアドレスが保護され隠されていても、そのメールアドレスの持ち主のコメントを検索することができます。</p>
+<p>これは魔法のように聞こえますが、可能なことです。一方向性の数学的な「ハッシュ」関数がメールアドレスを隠すと同時に、メールアドレスを検索可能にしてくれるからです。</p>
+<p>この機能がオンになっていると、渡される値は、FOAF(Friend of a Friend)ファイルで使われる値と同一です。したがって、コメント投稿者が、FOAFファイルによって同定される人と同じであるかどうか、判定できます。</p>
+<p>特に、ハッシュになったメールアドレスは、メールアドレスの前に<em> mailto: </em> を追加して、結果をハッシュすることで、形成されます。</p>
+<hr />
+
+<h2><a name="encoding_issues"></a>エンコードの問題</h2>
+<p>認証サービスに保管された<a href="#item_nick"><em> nick </em> </a>フィールドは、HTMLのページでMovable Typeによって表示されます。そして、非常に大きな文字セットからのエンコード文字を含むことがあります。 ターゲットのページ(通常はブログ)で、認証サービスが認識できない様々なエンコードを使っている可能性があるため、<a href="#item_nick"><em> nick </em> </a>フィールドをHTMLエンティティでエンコードするのが最も安全な方策です。</p>
+<p>認証応答の<a href="#item_nick"><em> nick </em> </a>CGIパラメータは、署名をコンピュータ処理するときに使う値と、1バイト1バイト同一である必要があります。 クエリー文字列のURLデコーディングを除き、Movable Typeは署名を確認するときにどんな再復元(リコーディング)も行いません。</p>
+<p>だだし、<a href="#item_nick"><em> nick </em> </a>の値は、US-ASCII文字セットに制約されません。そして認証サービスは必要な場合、特定のエンコーディングを自由に利用できます。</p>
+<p>(訳注: 現在、シックス・アパートが提供している TypeKey では UTF-8 を利用しており、Movable Type 3.2日本語版では、認証サービスが UTF-8 を利用していることを前提にしています。)</p>
+<hr />
+
+<h2><a name="references"></a>参照サイト(英語)</h2>
+<ul>
+	<li><strong><a name="item_Digital_Signature_Algorithm_Chttp"></a>[1] Digital Signature Algorithm, &lt;http://www.itl.nist.gov/fipspubs/fip180-1.htm></strong></li>
+	<li><strong><a name="item_FIPS_PUB_186_Digital_Signature_Standard"></a>[2] FIPS PUB 186, Digital Signature Standard, &lt;http://www.itl.nist.gov/fipspubs/fip186.htm></strong></li>
+	<li><strong><a name="item_FIPS_PUB_180_Secure_Hash_Standard"></a>[3] FIPS PUB 180-1, Secure Hash Standard, &lt;http://www.itl.nist.gov/fipspubs/fip180-1.htm></strong></li>
+	<li><strong><a name="item_Extensions"></a>[4] RFC 2045 - Multipurpose Internet Mail Extensions (MIME) Part One: Format of Internet Message Bodies (Section 6.8. describes Base64), &lt;http://www.faqs.org/rfcs/rfc2045.html></strong></li>
+	<li><strong><a name="item_Friend_of_a_Friend_project_http"></a>[5] Friend of a Friend project, &lt;http://www.foaf-project.org/></strong></li>
+</ul>
+<hr />
+
+<span class="copyright">Copyright &copy; 2001-2005 Six Apart, Ltd. All Rights Reserved.</span>
+</body>
+</html>

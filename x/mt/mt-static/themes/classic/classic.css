@@ -1,0 +1,653 @@
+@charset "utf-8"; /* PublishCharset into mt-config.cgi */
+
+/*
+name: KOIKIKUKAN Classic
+designer: Yujiro Araki
+designer_url: http://www.koikikukan.com/
+developer: Yujiro Araki
+developer_url: http://www.koikikukan.com/
+*/
+
+/*
+ * File      : styles-site.css
+ * Version   : 2.04
+ * Update    :
+ * 2.00 2005.09.01: Update for Movable Type 3.2.
+ * 2.01 2005.09.03: add font-size to content-nav.
+ * 2.02 2005.09.27: correct the capital letter to the small letter.
+ * 2.03 2005.10.11: for StyleCatcher Plugin.
+ * 2.04 2006.01.27: add .module-calendar selector.
+ *
+ * Copyright (C) 2005-2006 www.koikikukan.com All rights reserved.
+ */
+
+/* すべて */
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Verdana, Arial, sans-serif;
+    font-weight: normal;
+}
+
+body {
+    padding-top: 0; /* for Opera */
+    margin-top: 0;  /* for IE/Firefox */
+    font-family: Verdana, Arial, sans-serif;
+}
+
+.pkg:after
+{
+   content: " ";
+   display: block;
+   visibility: hidden;
+   clear: both;
+   height: 0.1px;
+   font-size: 0.1em;
+   line-height: 0;
+}
+
+/* リンク */
+a:link,
+a:visited {
+    color: #006699;
+    text-decoration: none;
+}
+a:hover {
+    color: #006699;
+    text-decoration: underline;
+}
+a:active {}
+
+/* リンクつき画像 */
+a img {
+    border: 0;
+}
+
+/* 段落 */
+p {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+/* 順序なしリスト */
+ul {
+    margin: 3px 0 0 0;
+    padding: 0 0 0 16px;
+}
+ul li {
+    list-style-type: circle;
+}
+
+/* 新規追加 */
+ol {
+margin: 3px 0 0 0;
+    padding-left: 20px;
+    _padding-left: 23px;
+}
+
+/* 定義リスト */
+dl {}
+dt {}
+dd {
+    padding-left: 8px;
+}
+
+h3 { /* for CommentPreview */
+    margin: 10px 0;
+    font-size: 11px;
+}
+
+/* フォーム */
+form {
+    margin: 0px;
+}
+input {
+    padding: 1px;
+    font-size: 12px;
+}
+
+/* 引用 */
+blockquote {
+    width: auto;
+    margin: 15px 20px 0 20px;
+    padding: 10px;
+    border: 1px solid #666666;
+    background: #f6f6f6;
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 10px;
+    line-height: 150%;
+}
+.quotetitle { /* 引用文タイトル */
+    font-size: 10px;
+    border-bottom: 1px solid #666666;
+    padding: 3px;
+}
+
+/* タイトルバナー */
+#banner {
+    padding: 15px;
+    border-bottom: 1px solid #666699;
+    color: #999999;
+    background: #8fabbe;
+    background-position: right top;
+    background-repeat: no-repeat;
+    text-align: left;
+}
+
+#banner-inner h1,
+#banner-inner h2 {
+    margin: 0;
+    padding: 0;
+}
+
+#banner-header {
+    font-weight: normal;
+    font-size: 32px;
+}
+
+#banner-header a,
+#banner-header a:link,
+#banner-header a:visited {
+    color: #ffffff;
+    font-size: 32px;
+    text-decoration: none;
+}
+#banner-header a:hover {}
+#banner-header a:active {}
+
+/* タイトルバナー下の説明 */
+#banner-description {
+    margin-top: 0;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+/* エントリー日付 */
+.date-header {
+/*    margin: 6px 5px 0;*/
+    margin: 17px 0px 15px 0px;
+    _margin-top: 18px;
+/*    padding: 2px 0 2px 5px;*/
+    padding: 3px 0 4px 5px;
+    color: #ffffff;
+    background: #a3b8cc;
+    background-position: left; 
+    background-repeat: no-repeat;
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+/* エントリー */
+.entry {
+    width: auto;
+/*    margin: 0 5px 15px;*/
+    margin: 0 0 15px 0;
+    color: #36414d;
+    background: #ffffff;
+    background-position: right; 
+    background-repeat: repeat-y; 
+    font-size: 12px;
+    line-height:150%;
+    word-break: break-all;
+}
+.entry a:active {}
+.entry img {
+    margin-right: 8px;
+    margin-bottom: 5px;
+}
+
+/* エントリーのテキストエリア可変長指定 */
+.entry textarea {
+    width: 97%;
+}
+
+/* 追記 */
+.entry.extended {}
+
+/* エントリータイトル */
+.entry-header {
+    margin: 15px 0 0;
+    color: #444444;
+    font-size: 12px;
+    font-weight: bold;
+padding-left: 5px;
+border-left: 5px solid #555555;
+}
+
+/* 投稿者 */
+.entry-footer {
+    margin: 10px 0 0 0;
+    border-top: 1px dotted #36414d;
+    text-align: right;
+    color: #36414d;
+    font-size: 9px;
+}
+
+/* Typekeyコメンタ－画像 */
+.commenter-profile img {
+    vertical-align: middle;
+    border-width: 0;
+}
+
+/* アーカイブページの前後リンク */
+.content-nav {
+    margin: 10px;
+    text-align: center;
+    font-size: 12px;
+}
+
+/* カレンダー */
+.module-calendar .module-content {
+    margin: 0 -10px 0 2px;
+    _margin: 0 -2px 0 -3px;
+    padding-bottom: 5px;
+    font-size: 9px;
+}
+.module-calendar .module-content th {
+    padding-bottom: 3px;
+    font-size: 9px;
+    _font-size: 8px;
+    width: 20px;
+}
+.module-calendar .module-content td {
+    padding: 2px 0;
+    font-size: 9px;
+    line-height: 120%;
+    _line-height: 100%;
+}
+.today {
+    display: block;
+    text-align: center;
+    color: #444444;
+    border: 1px solid #444444;
+}
+.red {
+    color: #e50003;
+}
+.blue {
+    color: blue;
+}
+
+/* サイドメニュータイトル */
+.module-header {
+    margin-top: 3px;
+    margin-bottom: 3px;
+    padding: 2px 0 1px;
+    _padding: 1px 0 2px;
+    border: 1px solid  #666666;
+    text-align: center;
+    color: #444444;
+    background: #f6f6f6;
+    font-size: 10px;
+    font-weight: normal;
+    line-height: 140%;
+}
+
+/* サイドメニュー */
+.module {
+    margin: 3px 0 20px;
+    background: none;
+    color: #444444;
+    font-size: 10px;
+    _font-size: 9px;
+    line-height: 150%;
+}
+
+/* サイドメニュー(サブカテゴリー用) */
+.side #categories ul {
+    padding-left: 16px;
+}
+.side #categories ul ul {
+    padding-left: 10px;
+}
+.side #categories li {
+    list-style-type: circle;
+}
+
+/* カウンター */
+.counter {
+    margin: 8px 0 25px;
+    padding: 2px;
+    background: none;
+    font-size: 9px;
+}
+
+/* RSSフィード */
+.syndicate {
+    margin-bottom: 5px;
+    text-align: left;
+    color: #666666;
+    font-size: 9px;
+    line-height: 150%;
+}
+
+/* クレジットバナー */
+.powered {
+    margin-top: 50px;
+    text-align: left;
+    color: #666666;
+    font-size: 9px;
+    line-height: 150%;
+}
+.powered img {
+    margin-top: 3px;
+}
+
+.clear {
+    clear: both;
+}
+
+/* コメント・トラックバック */
+#comments-open-data p {
+/*    margin-bottom: 10px;*/
+    margin: 0 2px 10px;
+}
+
+#comment-post {
+   font-weight: bold;
+}
+
+#comment-author, #comment-email, #comment-url, #comment-text {
+   width: 220px;
+}
+
+#comment-text {
+    width: 266px;
+}
+
+#comment-bake-cookie {
+   margin-left: 2px;
+   vertical-align: middle;
+}
+
+#comments-open-footer {
+    text-align: center;
+}
+
+.trackbacks,
+.comments {
+/*    margin: 10px 5px;*/
+/*    margin: 10px 15px;*/
+    color: #36414d;
+}
+
+.trackbacks-header,
+.comments-header,
+.comments-open-header {
+/*    margin: 15px 0;*/
+margin: 15px 0;
+    padding: 2px 0 2px 5px;
+    color: #ffffff;
+    background: #8fabbe;
+    font-size: 11px;
+}
+
+#trackbacks-info,
+.trackback-content,
+.comment-content,
+.comments-open-content {
+/*    margin: 0;
+    padding: 0;*/
+margin: 10px 0px;
+    font-size: 12px;
+    line-height: 150%;
+    word-break: break-all;
+}
+
+.trackback-content p,
+.comment-content p {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.trackback-footer,
+.comment-footer {
+    font-size: 9px;
+    border-top: 1px dotted #36414d;
+    text-align: right;
+    padding-top: 3px;
+    margin-right: 2px;
+}
+
+.comments-open label {
+    display: block;
+}
+
+.comments-head {
+    font-size: 11px;
+    color: #ffffff;
+    background: #8fabbe;
+    padding: 2px 0 2px 5px;
+    margin: 15px 0;
+}
+
+/* カラム切り替え */
+
+/* 3カラム用 */
+body.layout-three-column,
+body.layout-two-column-left,
+body.layout-two-column-right,
+body.layout-one-column {
+    margin-bottom: 20px;
+    text-align: center;
+    background: #36414d;
+
+}
+
+.layout-three-column #container {
+    width: 850px;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 0 0 15px 0;
+    border-bottom: 1px solid #666699;
+    border-left: 1px solid #666699;
+    border-right: 1px solid #666699;
+    text-align: left;
+    background-color: #ffffff;
+}
+
+/* 2カラム用 */
+.layout-two-column-left #container,
+.layout-two-column-right #container {
+    width: 665px;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 0 0 15px 0;
+    border-bottom: 1px solid #666699;
+    border-left: 1px solid #666699;
+    border-right: 1px solid #666699;
+    text-align: left;
+    background-color: #ffffff;
+}
+
+/* 2カラム用 */
+.layout-one-column #container {
+    margin-bottom: 0;
+}
+
+/* 1カラム用 */
+.layout-one-column #container {
+    width: 478px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 0;
+    padding: 0;
+    border-bottom: 1px solid #666699;
+    border-left: 1px solid #666699;
+    border-right: 1px solid #666699;
+    text-align: left;
+    background-color: #ffffff;
+}
+
+.layout-three-column #container,
+.layout-two-column-left #container,
+.layout-two-column-right #container {
+    margin-bottom: 10px;
+}
+
+/* 1カラム・リキッドレイアウト用 */
+/* タイトルバナー */
+.layout-one-column-liquid #banner {
+    margin-right: 100px;
+    margin-left : 100px;
+    border-left: 1px solid #666699;
+    border-right: 1px solid #666699;
+}
+body.layout-one-column-liquid {
+    background: #36414d;
+}
+
+/* フッタ */
+.layout-one-column #footer {
+    text-align: center;
+}
+.layout-one-column-liquid #footer {
+    padding-bottom: 15px;
+    text-align: center;
+}
+
+/* 3カラム(リキッドレイアウト) */
+.layout-three-column-liquid #alpha{
+    position: absolute;
+    width: 155px;
+    top: 95px;
+    left: 15px;
+    color: #ffffff;
+}
+.layout-three-column-liquid #beta {
+    margin: 0 185px 10px;
+    border-bottom: 1px solid #666699;
+    border-left: 1px solid #666699;
+    border-right: 1px solid #666699;
+}
+.layout-three-column-liquid #beta-inner {
+    margin: 0 15px;
+    padding-top: 1px; /* これがないとborder が出ない */
+}
+.layout-three-column-liquid #gamma{
+    position: absolute;
+    width: 155px;
+    top: 95px;
+    right: 15px;
+    color: #ffffff;
+}
+
+/* 2カラム(リキッドレイアウト：右サイドバー) */
+.layout-two-column-liquid-right #alpha {
+    margin: 0 185px 10px 0;
+    border-bottom: 1px solid #666699;
+    border-right: 1px solid #666699;
+}
+.layout-two-column-liquid-right #alpha-inner {
+    margin: 0 15px;
+    padding-top: 1px; /* これがないとborder が出ない */
+}
+.layout-two-column-liquid-right #beta {
+    position: absolute;
+    width: 155px;
+    top: 95px;
+    right: 15px;
+    color: #ffffff;
+}
+
+/* 2カラム(リキッドレイアウト：左サイドバー) */
+.layout-two-column-liquid-left #alpha {
+    position: absolute;
+    width: 155px;
+    top: 95px;
+    left: 15px;
+    color: #ffffff;
+}
+.layout-two-column-liquid-left #beta {
+    margin: 0 0 10px 185px;
+    border-bottom: 1px solid #666699;
+    border-left: 1px solid #666699;
+}
+.layout-two-column-liquid-left #beta-inner {
+    margin: 0 15px;
+    padding-top: 1px; /* これがないとborder が出ない */
+}
+
+/* 1カラム(リキッドレイアウト) */
+.layout-one-column-liquid #alpha {
+    margin: 0 100px 10px;
+    border-bottom: 1px solid #666699;
+    border-left: 1px solid #666699;
+    border-right: 1px solid #666699;
+    background: #ffffff;
+}
+.layout-one-column-liquid #alpha-inner {
+    margin: 0 15px;
+}
+
+/* 3カラム */
+.layout-three-column #beta {
+    float: left;
+    width: 478px;
+/*    margin: 0 0 10px 0;*/
+    border-bottom: 1px solid #666699;
+    border-left: 1px solid #666699;
+    border-right: 1px solid #666699;
+}
+.layout-three-column #beta-inner {
+    margin: 0 15px 10px 15px;
+}
+.layout-three-column #alpha,
+.layout-three-column #gamma {
+    float: left;
+    width: 185px;
+}
+.layout-three-column #alpha-inner,
+.layout-three-column #gamma-inner {
+    padding: 15px 15px 0 15px;
+    color: #ffffff;
+}
+
+/* 2カラム(右サイドバー) */
+.layout-two-column-right #alpha {
+    float: left;
+    width: 478px;
+/*    margin: 0 0 10px 0;*/
+    border-bottom: 1px solid #666699;
+    border-right: 1px solid #666699;
+}
+.layout-two-column-right #alpha-inner {
+    margin: 0 15px 10px 15px;
+}
+.layout-two-column-right #beta {
+    float: left;
+    width: 185px;
+}
+.layout-two-column-right #beta-inner {
+    padding: 15px 15px 0;
+}
+
+/* 2カラム(左サイドバー) */
+.layout-two-column-left #alpha {
+    float: left;
+    width: 185px;
+}
+.layout-two-column-left #alpha-inner {
+    padding: 15px 15px 0;
+}
+.layout-two-column-left #beta {
+    float: left;
+    width: 478px;
+/*    margin: 0 0 10px 0;*/
+    border-bottom: 1px solid #666699;
+    border-left: 1px solid #666699;
+}
+.layout-two-column-left #beta-inner {
+    margin: 0 15px 10px 15px;
+}
+
+/* 1カラム */
+.layout-one-column #alpha {
+    margin: 5px 15px 10px 15px;
+}
+
+input,textarea {
+    font-family: "Osaka", "ヒラギノ角ゴ Pro W3", "ＭＳ Ｐゴシック", arial, sans-serif;
+}

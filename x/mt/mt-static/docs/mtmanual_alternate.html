@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="doc-styles.css" type="text/css"/>
+<title>Movable Typeユーザー・マニュアル: mod_perlを使った高速化</title>
+</head>
+
+<body>
+<h1 id="__index__">Movable Typeユーザー・マニュアル: mod_perlを使った高速化</h1>
+<p><a href="mtmanual.html">&laquo; 目次</a></p>
+
+<p>Movable Typeは、<em>mod_perl </em>の環境下、レジストリ・モードで、または完全なハンドラ・セットとして実行することができます。 <strong>注</strong>：<em> mod_perl </em>下で実行するには、<em> Apache::Request </em>と<em> Apache::Cookie </em>をインストールしている<strong>必要があります</strong>。これらのモジュールは、以下のサイトからダウンロードできる<em> libapreq </em>配布パッケージの一部です。</p>
+<pre>
+<a href="http://www.sixapart.com/movabletype/cpan/cpan-libapreq.tar.gz">http://www.sixapart.com/movabletype/cpan/cpan-libapreq.tar.gz</a></pre>
+<p>Registry下でMovable Typeを設定することは、Registry下で他のCGIスクリプトを設定する作業に似ています。以下を<em> httpd.conf </em>に加えます。</p>
+
+<pre>
+PerlModule Apache::Registry
+&lt;Location /path/to/mt&gt;
+SetHandler perl-script
+PerlHandler Apache::Registry
+Options +ExecCGI
+&lt;/Location&gt;
+</pre>
+
+<p><em> docs </em>、<em> images </em>、および<em> styles.css </em>ファイルは、Movable Typeを<em> cgi-bin </em>へアップロードしたときと同様に、<em> /path/to/mt </em>以外の場所にあるディレクトリにホストする必要があります。 詳細は「<a href="./mtmanual_troubleshooting.html#images,_styles,_and_documentation_do_not_show_up">トラブルシューティング</a>」を参照してください。</p>
+<p>より高速な処理を望む場合は、Movable Typeをmod_perlハンドラとして実行することを検討します。 その際は、メイン・アプリケーション用とフロントエンドのコメント用の2つのハンドラを設定する必要があります。</p>
+<ol>
+<li> 「<a href="./mtmanual_install.html">Movable Typeのインストール</a>」を普通に行い、<em> mt-load.cgi </em>を実行してデータベースを初期化します。 <p></p></li>
+<li> <em> images </em>、<em> docs </em>、および<em> styles.css </em>を<em> /mt/ </em><strong>以外の</strong>場所にあるウェブアクセス可能なディレクトリに納めるよう設定します。 詳細は「<a href="./mtmanual_troubleshooting.html#images,_styles,_and_documentation_do_not_show_up">トラブルシューティング</a>」を参照してください。 <p></p></li>
+<li>以下を<em> httpd.conf </em>に追加します。
+
+<pre>
+&lt;Perl&gt;
+use lib '/path/to/mt/lib';
+use lib '/path/to/mt/extlib';
+&lt;/Perl&gt;
+
+PerlModule MT::App::CMS
+&lt;Location /mt/app&gt;
+SetHandler perl-script
+PerlHandler MT::App::CMS
+PerlSetVar MTConfig /path/to/mt-config.cgi
+&lt;/Location&gt;
+
+PerlModule MT::App::Comments
+&lt;Location /mt/comments&gt;
+SetHandler perl-script
+PerlHandler MT::App::Comments
+PerlSetVar MTConfig /path/to/mt-config.cgi
+&lt;/Location&gt;
+
+PerlModule MT::App::Trackback
+&lt;Location /mt/trackback&gt;
+SetHandler perl-script
+PerlHandler MT::App::Trackback
+PerlSetVar MTConfig /path/to/mt-config.cgi
+&lt;/Location&gt;
+
+PerlModule MT::App::Search
+&lt;Location /mt/search&gt;
+SetHandler perl-script
+PerlHandler MT::App::Search
+PerlSetVar MTConfig /path/to/mt-config.cgi
+&lt;/Location&gt;
+
+PerlModule Apache::XMLRPC::Lite
+PerlModule MT::XMLRPCServer
+&lt;Location /mt/xmlrpc&gt;
+SetHandler perl-script
+PerlHandler Apache::XMLRPC::Lite
+PerlSetVar dispatch_to "blogger, metaWeblog, mt"
+PerlSetVar MTConfig /path/to/mt-config.cgi
+&lt;/Location&gt;
+</pre>
+
+<p>上の<code>use lib</code>の代わりに以下を使うこともできます。</p>
+
+<pre>
+PerlSetEnv PERL5LIB /path/to/mt/lib
+</pre>
+</li>
+
+<li><em> mt-config.cgi </em>ファイルには、以下の設定を使う必要があります。
+
+<pre>
+DataSource /path/to/db
+CGIPath <a href="http://my.server.com/mt/">http://my.server.com/mt/</a>
+StaticWebPath /mt-static/
+AdminScript app
+CommentScript comments
+TrackbackScript trackback
+SearchScript search
+XMLRPCScript xmlrpc
+</pre>
+
+<p><code>StaticWebPath</code>は、ステップ1で<em> images </em>、<em> docs </em>、および<em> styles.css </em>を設定するときに指定したURLと一致させてください。</p>
+</li>
+</ol>
+<hr />
+
+<span class="copyright">Copyright &copy; 2001-2005 Six Apart, Ltd. All Rights Reserved.</span>
+</body>
+</html>

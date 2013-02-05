@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="doc-styles.css" type="text/css"/>
+<title>Movable Typeユーザー・マニュアル: Movable Type 3.1 の新機能</title>
+</head>
+
+<body>
+<h1 id="__index__">Movable Typeユーザー・マニュアル: Movable Type 3.1 の新機能</h1>
+<p><a href="mtmanual.html">&laquo; 目次</a></p>
+<ul>
+	<li><a href="#dynamic_pages">ダイナミック・ページ</a></li>
+	<li><a href="#scheduled_posting">予約投稿</a></li>
+	<li><a href="#subcategories">サブカテゴリー</a></li>
+	<li><a href="#applicationlevel_callbacks">アプリケーション・レベルのコールバック</a></li>
+</ul>
+
+<p>このドキュメントは、Movable Type 3.1の新機能と更新機能、およびこれらの機能を利用するためのステップを説明しています。</p>
+
+<div id="dynamic_pages">
+<h2>ダイナミック・ページ</h2>
+<p>これは、手動でファイルを再構築する手間を完全に省きます。たとえば、アーカイブ・テンプレートのデザインを更新する際に、サイトのデザインは、あなた自身が再構築しなくても、直ちに更新されるようになります。</p>
+<p>テンプレートのダイナミック・レンダリングをオンにする手順</p>
+
+<ol>
+<li><strong><a name="item_Turn_on_the_dynamic_page_option_in_Movable_Type"></a></strong>「Custom(カスタム)」を選択すると、必要な各テンプレートを編集してダイナミックをオンにし、「Build this template each time it is visited(閲覧ごとにテンプレートを構築)」を選択するステップが必要になります。</li>
+<li><strong><a name="item_Set_up_the_template_cache_directory"></a></strong>ディレクトリーに<em> 777 </em> のパーミッションを設定します。</li>		
+<li><strong><a name="item_Set_up_your_Ehtaccess_file"></a></strong><em> .htaccess </em> ファイルを設定する<br />
+<p>このファイルは以下のような内容になるはずです。</p>
+<pre># ファンシー・インデックスをオフにして、mtview.phpを扱えるようにする...
+Options -Indexes
+&lt;IfModule mod_rewrite.c>
+# mod_rewrite ソリューションは柔軟性があるので、
+# ダイナミック・ページを起動するのに適している。
+# mtview.phpをDirectoryIndexオプション・リストの最後に載せる。 
+# すると、他の一般的な選択肢がない場合にだけ、起動されるようになる...
+&lt;IfModule mod_dir.c>
+DirectoryIndex index.php index.html index.htm default.htm default.html default.asp /mtview.php
+&lt;/IfModule>
+RewriteEngine on
+# リクエストが実際のディレクトリに対してなされた場合は、mtview.phpを扱わない。
+# (DirectoryIndex lookupが機能するようになる)
+RewriteCond %{REQUEST_FILENAME} !-d
+# リクエストが実際のファイルに対してなされた場合は、mtview.phpを扱わない。
+# (実際のファイルが扱われるようになる)
+RewriteCond %{REQUEST_FILENAME} !-f
+# ほかはすべて、mtview.phpに渡されリクエストが処理される。
+RewriteRule ^(.*)$ /mtview.php [L,QSA]
+&lt;/IfModule>
+&lt;IfModule !mod_rewrite.c>
+# mod_rewriteがない場合は、欠如しているページ、または未処理の
+# ディレクトリ・インデックス・リクエストをmtviewに送る。
+# mtview.phpが200の結果コードを戻した場合、mtview.phpはリクエストを処理できる。
+# このコードは、4xxエラー・コードがサーバーのアクセス・ログへ
+# だだし、エラーはエラー・ログ・ファイルに
+# これが唯一の選択で、
+# これらのメッセージを出したくない場合は、VirtualHostの"LogLevel crit"
+# ディレクディブを足すか、Apacheのルート・コンフィギュレーションで、
+# メッセージがオフにできる。
+ErrorDocument 404 /mtview.php
+ErrorDocument 403 /mtview.php
+&lt;/IfModule>
+</pre>
+<p>ブログが<em> /weblog </em> などのサブディレクトリにある場合は、たとえば、<em> /weblog/mtview.php </em> のように<em> mtview.php </em> の前にパスを付けてください。<em> .htaccess </em> ファイルがある場合は、その最後に上記のコードを加えてください。</p>
+</li>
+<li><strong><a name="item_Your_final_Rebuild_All"></a></strong>最後に「Rebuild All(すべて構築)」のステップを行い、既存のエントリーをこの新しいオプションで再設定します。</li>
+</ol>
+<p>次に以下の行を<strong>Dynamic Site Bootstrapper</strong>テンプレートに加えます。</p>
+<pre>$mt->caching = true;</pre>
+<p>この行は<em> $mt->view() </em> の行の上に加えてください。プラグインのタグのためにエラーが生じた場合は、<em> tag(s) </em> を除くか、テンプレートをスタティックの状態で処理する必要があります。</p>
+</div>
+
+<div id="scheduled_posting">
+<h2>予約投稿</h2>
+<p>予約投稿を使うと、あなたが実際にコンピュータの前にいなくても、あなたのブログ・コミュニティは新しい情報によって活気づくようになります。</p>
+<p>シェルにアクセスできる場合は、以下の手順に従ってください。</p>
+<ol>
+<li><strong><a name="item_Log_in_to_the_server"></a>crontabを編集する</strong><br />
+
+<pre>
+% crontab -e
+</pre>
+</li>
+<li><strong><a name="item_Add_the_following_line"></a>以下の行を追加する</strong><br />
+<pre>
+0,15,30,45 * * * * cd &lt;path to mt>; ./tools/run-periodic-tasks
+</pre>
+</li>
+</ol>
+<p>この行には、スペースで区切られた4つのアスタリスクが必要です。</p>
+<p><em> &lt;path to mt> </em> は、あなたのMovable Typeアプリケーションが格納されているディレクトリまでのパスにしてください。次に、ファイルを保存し、エディタを終了します。するとcronが、新しいcrontabをインストールしたことを報告します。詳細は「<a href="./mtmanual_advanced.html#scheduled posting">高度な機能</a>」を参照してください。</p>
+<p>エントリーをサイトに表示する日時は、「エントリーの編集」画面の「作成日」フィールドに指定します。</p>
+</div>
+
+<div id="subcategories">
+<h2>サブカテゴリー</h2>
+<p>シックス・アパートは、David Raynes氏から大きな協力を得て、そのプラグインをMovable Typeのコア・エンジンに統合しました。</p>
+<p>Movable Typeのブログにおいて、サブカテゴリーを管理するにはまず、Movable Typeにログインし、編集したいブログ名をクリックした後、「カテゴリー」タブをクリックします。</p>
+<p>以前のバージョンからアップグレードするユーザーの方は、以下のコードを使って、サブカテゴリーのリストをテンプレートに追加することができます。</p>
+<pre>&lt;MTSubCategories>
+&lt;MTSubCatIsFirst>&lt;ul>&lt;/MTSubCatIsFirst>
+&lt;MTIfNonZero tag="MTCategoryCount">
+&lt;li>&lt;a href="&lt;$MTCategoryArchiveLink$>" title="&lt;$MTCategoryDescription$>">&lt;MTCategoryLabel>&lt;/a>
+&lt;MTElse>
+&lt;li>&lt;MTCategoryLabel>
+&lt;/MTElse>
+&lt;/MTIfNonZero>
+&lt;MTSubCatsRecurse max_depth="3">
+&lt;/li>
+&lt;MTSubCatIsLast>&lt;/ul>&lt;/MTSubCatIsLast>
+&lt;/MTSubCategories>
+</pre>
+<p>新しいサブカテゴリーについてのその他の記載は、「<a href="./mtmanual_tags.html">テンプレート・タグ</a>」を参照してください。</p>
+</div>
+
+<div id="applicationlevel_callbacks">
+<h2>アプリケーション・レベルのコールバック</h2>
+<p>これによって開発者は、無限のオプションを使えるようになりましが、3.1ではさらにこの機能が強化されています。</p>
+<p>プラグインは今、コメントやトラックバックを、投稿される前にフィルターするため、コードを加えることができます、パブリッシング・プロセスや、公開されるファイルのリストのフィルタリングおよび修正などにフックするコードです。</p>
+</div>
+
+<hr />
+
+<span class="copyright">Copyright &copy; 2001-2005 Six Apart, Ltd. All Rights Reserved.</span>
+</body>
+</html>

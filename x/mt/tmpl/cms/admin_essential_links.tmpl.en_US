@@ -1,0 +1,12 @@
+<h4><MT_TRANS phrase="Essential Links"></h4>
+<div class="inner">
+<ul>
+<li><a href="<TMPL_VAR NAME=SCRIPT_PATH>mt-check.cgi"><MT_TRANS phrase="System Information"></a></li>
+<li><a href="https://secure.sixapart.com/t/account"><MT_TRANS phrase="Your Account"></a> &#187;</li>
+<li><a href="http://www.sixapart.com/movabletype/"><MT_TRANS phrase="Movable Type Home"></a> &#187;</li>
+<li><a href="http://www.sixapart.com/pronet/plugins/"><MT_TRANS phrase="Plugin Directory"></a> &#187;</li>
+<li><a href="https://secure.sixapart.com/t/help?__mode=kb"><MT_TRANS phrase="Knowledge Base"></a> &#187;</li>
+<li><a href="http://www.sixapart.com/movabletype/support"><MT_TRANS phrase="Support and Documentation"></a> &#187;</li>
+<li><a href="http://www.sixapart.com/pronet/"><MT_TRANS phrase="Professional Network"></a> &#187;</li>
+</ul>
+</div>
