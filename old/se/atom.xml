@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <title>大いなる新人 ～SE編～</title>
-    <link rel="alternate" type="text/html" href="http://www.kino3.jp/se/" />
-    <link rel="self" type="application/atom+xml" href="http://www.kino3.jp/se/atom.xml" />
+    <link rel="alternate" type="text/html" href="http://www.kino3.jp/old/se/" />
+    <link rel="self" type="application/atom+xml" href="http://www.kino3.jp/old/se/atom.xml" />
    <id>tag:www.kino3.jp,2007:/se//2</id>
-    <link rel="service.post" type="application/atom+xml" href="http://www.kino3.jp/x/mt/mt-atom.cgi/weblog/blog_id=2" title="大いなる新人 ～SE編～" />
+    <link rel="service.post" type="application/atom+xml" href="http://www.kino3.jp/old/x/mt/mt-atom.cgi/weblog/blog_id=2" title="大いなる新人 ～SE編～" />
     <updated>2007-10-31T14:08:38Z</updated>
     <subtitle>パソコンだけが友達です</subtitle>
     <generator uri="http://www.sixapart.com/movabletype/">Movable Type  3.2-ja-2</generator>
  
 <entry>
     <title>XOOPS!</title>
-    <link rel="alternate" type="text/html" href="http://www.kino3.jp/se/2007/10/xoops.html" />
-    <link rel="service.edit" type="application/atom+xml" href="http://www.kino3.jp/x/mt/mt-atom.cgi/weblog/blog_id=2/entry_id=190" title="XOOPS!" />
+    <link rel="alternate" type="text/html" href="http://www.kino3.jp/old/se/2007/10/xoops.html" />
+    <link rel="service.edit" type="application/atom+xml" href="http://www.kino3.jp/old/x/mt/mt-atom.cgi/weblog/blog_id=2/entry_id=190" title="XOOPS!" />
     <id>tag:www.kino3.jp,2007:/se//2.190</id>
     
     <published>2007-10-31T14:05:51Z</published>
@@ -25,7 +25,7 @@
     </author>
             <category term="ぼやき" />
     
-    <content type="html" xml:lang="en" xml:base="http://www.kino3.jp/se/">
+    <content type="html" xml:lang="en" xml:base="http://www.kino3.jp/old/se/">
         <![CDATA[ソフ開終わりました。午前は通ったが…。午後２がダメっぽい。
 
 そして今月も終わる。迫る我がサイトリニューアル方針がいま決定した。
@@ -37,8 +37,8 @@
 </entry>
 <entry>
     <title>新３Ｋ</title>
-    <link rel="alternate" type="text/html" href="http://www.kino3.jp/se/2007/10/post_2.html" />
-    <link rel="service.edit" type="application/atom+xml" href="http://www.kino3.jp/x/mt/mt-atom.cgi/weblog/blog_id=2/entry_id=186" title="新３Ｋ" />
+    <link rel="alternate" type="text/html" href="http://www.kino3.jp/old/se/2007/10/post_2.html" />
+    <link rel="service.edit" type="application/atom+xml" href="http://www.kino3.jp/old/x/mt/mt-atom.cgi/weblog/blog_id=2/entry_id=186" title="新３Ｋ" />
     <id>tag:www.kino3.jp,2007:/se//2.186</id>
     
     <published>2007-10-07T02:11:49Z</published>
@@ -51,7 +51,7 @@
     </author>
             <category term="ぼやき" />
     
-    <content type="html" xml:lang="en" xml:base="http://www.kino3.jp/se/">
+    <content type="html" xml:lang="en" xml:base="http://www.kino3.jp/old/se/">
         我々ＳＩ（システムインテグレーション、でいいのかな？）業界は、新３Ｋと呼ばれているらしい。曰く、「きつい」「厳しい」「帰れない」。曰く、「きつい」「帰れない」「給料が安い」。他にも「きりがない」など、グーグル先生で調べるといろいろ出てきて、この言説の変遷を分析するだけでそこそこの社会学論文になると思う。
 
 そういやグーグル先生で思い出したが、ＩＢＭとグーグルで打倒Microsoft Officeをやるそうな。思えばLotusとかJustSystemとか色々あったなぁ（いや、今でも三四郎は好きだが）と振り返りつつ、今後の情勢を予想する。例えば冬のボーナスでＰＣを買い換えるとしても、オフィスは買いたくないよな…高いし。あの額出すならスーツ一着買うよ。
@@ -62,8 +62,8 @@
 </entry>
 <entry>
     <title>ソフトウェア開発技術者</title>
-    <link rel="alternate" type="text/html" href="http://www.kino3.jp/se/2007/09/post.html" />
-    <link rel="service.edit" type="application/atom+xml" href="http://www.kino3.jp/x/mt/mt-atom.cgi/weblog/blog_id=2/entry_id=185" title="ソフトウェア開発技術者" />
+    <link rel="alternate" type="text/html" href="http://www.kino3.jp/old/se/2007/09/post.html" />
+    <link rel="service.edit" type="application/atom+xml" href="http://www.kino3.jp/old/x/mt/mt-atom.cgi/weblog/blog_id=2/entry_id=185" title="ソフトウェア開発技術者" />
     <id>tag:www.kino3.jp,2007:/se//2.185</id>
     
     <published>2007-09-30T14:20:28Z</published>
@@ -75,7 +75,7 @@
         <uri>http://www.kino3.jp/</uri>
     </author>
     
-    <content type="html" xml:lang="en" xml:base="http://www.kino3.jp/se/">
+    <content type="html" xml:lang="en" xml:base="http://www.kino3.jp/old/se/">
         IPAのソフトウェア開発技術者の試験まであと3週間。少しずつ勉強はしていたものの、本腰を入れるには至らず。これで受かるのか？という疑問はあるが、あとはベストを尽くすのみ。勉強できる時間をできるだけ割いて、その時間できるだけ集中するのみ。ダメなら仕方ない。ダメなら残業してでも納期に間に合わせねばならない仕事に比べれば、いくらか気楽である。
 
 そして、こういう時に限って「今度飲もうよ～」的連絡が来る。うー。
@@ -85,8 +85,8 @@
 </entry>
 <entry>
     <title>人生のWBS</title>
-    <link rel="alternate" type="text/html" href="http://www.kino3.jp/se/2007/09/wbs.html" />
-    <link rel="service.edit" type="application/atom+xml" href="http://www.kino3.jp/x/mt/mt-atom.cgi/weblog/blog_id=2/entry_id=184" title="人生のWBS" />
+    <link rel="alternate" type="text/html" href="http://www.kino3.jp/old/se/2007/09/wbs.html" />
+    <link rel="service.edit" type="application/atom+xml" href="http://www.kino3.jp/old/x/mt/mt-atom.cgi/weblog/blog_id=2/entry_id=184" title="人生のWBS" />
     <id>tag:www.kino3.jp,2007:/se//2.184</id>
     
     <published>2007-09-27T12:23:12Z</published>
@@ -98,7 +98,7 @@
         <uri>http://www.kino3.jp/</uri>
     </author>
     
-    <content type="html" xml:lang="en" xml:base="http://www.kino3.jp/se/">
+    <content type="html" xml:lang="en" xml:base="http://www.kino3.jp/old/se/">
         <![CDATA[WBS（Working Breakdown Structure）での進捗管理というのを先月から勉強していまして、実践しとるわけなんですが、これいいね。うん、いい。すごくいいよ。<strong>巷にあふれるハウツー本の10倍ぐらい</strong>いい。
 
 要するに、すべて細かく区切ってどれぐらい時間がかかるか見積っていく、というだけなんですが、これって結構人生に応用が利く。例えば、週5日働いて2日休んでとすると、労働時間がこんなもん、家事の時間がこんなもん、ということは余暇がウン十時間。あ、意外と仕事時間と趣味の時間って同じぐらいあるんやね、みたいな。
@@ -109,8 +109,8 @@
 </entry>
 <entry>
     <title>English Version</title>
-    <link rel="alternate" type="text/html" href="http://www.kino3.jp/se/2007/09/english_version.html" />
-    <link rel="service.edit" type="application/atom+xml" href="http://www.kino3.jp/x/mt/mt-atom.cgi/weblog/blog_id=2/entry_id=181" title="English Version" />
+    <link rel="alternate" type="text/html" href="http://www.kino3.jp/old/se/2007/09/english_version.html" />
+    <link rel="service.edit" type="application/atom+xml" href="http://www.kino3.jp/old/x/mt/mt-atom.cgi/weblog/blog_id=2/entry_id=181" title="English Version" />
     <id>tag:www.kino3.jp,2007:/se//2.181</id>
     
     <published>2007-09-19T13:51:18Z</published>
@@ -123,7 +123,7 @@
     </author>
             <category term="いじる" />
     
-    <content type="html" xml:lang="en" xml:base="http://www.kino3.jp/se/">
+    <content type="html" xml:lang="en" xml:base="http://www.kino3.jp/old/se/">
         仕事でXPの英語版をいじっていたんですが、英語版って楽しいですね。だいたいの動作は見た感じで分かるので、英語の勉強になるんだな、これが。ああなるほど、Acceptが「はい」ということは、Declineが「いいえ」なのか、といった風に。
 
 実はわたしは何年か前から携帯電話もEnglish Modeでしか使わないという変人でして、多少なりとも日々英語をせなあかんという危機感はあるんですが、毎日使うパソコンが英語版やと効果は絶大だと思われます。パソコン用語に特化して語彙が増えるのもプラス。
@@ -135,8 +135,8 @@
 </entry>
 <entry>
     <title>さよならMovableType</title>
-    <link rel="alternate" type="text/html" href="http://www.kino3.jp/se/2007/09/movabletype.html" />
-    <link rel="service.edit" type="application/atom+xml" href="http://www.kino3.jp/x/mt/mt-atom.cgi/weblog/blog_id=2/entry_id=180" title="さよならMovableType" />
+    <link rel="alternate" type="text/html" href="http://www.kino3.jp/old/se/2007/09/movabletype.html" />
+    <link rel="service.edit" type="application/atom+xml" href="http://www.kino3.jp/old/x/mt/mt-atom.cgi/weblog/blog_id=2/entry_id=180" title="さよならMovableType" />
     <id>tag:www.kino3.jp,2007:/se//2.180</id>
     
     <published>2007-09-17T12:34:32Z</published>
@@ -149,7 +149,7 @@
     </author>
             <category term="ブログ" />
     
-    <content type="html" xml:lang="en" xml:base="http://www.kino3.jp/se/">
+    <content type="html" xml:lang="en" xml:base="http://www.kino3.jp/old/se/">
         <![CDATA[このブログはMovableType3.2にStyleCatcherプラグインのレイアウトを使っているんですが、ついさっきまでレイアウトが崩壊してまして、その原因追及に四苦八苦していました。結果、base-weblog.cssがデフォルトのものになっていなかったことが原因だったのですが、これをいつわたしが修正したのかが謎です。
 
 で、本題。最近ある団体のWebサイトを作ってまして「MovableTypeは非営利でも団体はダメ」ということを知りました。ああ、ついにさよならMovableType、愛したことは忘れないよ、なんて思ってたんですが、いろいろ調べると
@@ -167,8 +167,8 @@
 </entry>
 <entry>
     <title>もうパソコン以外愛せない</title>
-    <link rel="alternate" type="text/html" href="http://www.kino3.jp/se/2007/09/post_1.html" />
-    <link rel="service.edit" type="application/atom+xml" href="http://www.kino3.jp/x/mt/mt-atom.cgi/weblog/blog_id=2/entry_id=179" title="もうパソコン以外愛せない" />
+    <link rel="alternate" type="text/html" href="http://www.kino3.jp/old/se/2007/09/post_1.html" />
+    <link rel="service.edit" type="application/atom+xml" href="http://www.kino3.jp/old/x/mt/mt-atom.cgi/weblog/blog_id=2/entry_id=179" title="もうパソコン以外愛せない" />
     <id>tag:www.kino3.jp,2007:/se//2.179</id>
     
     <published>2007-09-13T14:10:45Z</published>
@@ -181,7 +181,7 @@
     </author>
             <category term="能書き" />
     
-    <content type="html" xml:lang="en" xml:base="http://www.kino3.jp/se/">
+    <content type="html" xml:lang="en" xml:base="http://www.kino3.jp/old/se/">
         <![CDATA[今日からパソコンの話は別ブログにしてみることにしました。というのも、役に立つ情報を蓄積しておけば個人的にどこでも見られるように思ったからです。あわよくば、会社でも…。セキュリティ厳しいけど。
 
 まだまだ半人前の身ですが、小さい頃から唯一？の友達だったパソコンと一日中接していられるのが、楽しくてなりません。長い付き合いなので愛の形は変わりますが、それでも<font size=+1>わたしの愛は不滅</font>です。特に、会社に入ってプログラミングを久々にやり、その情炎はさらに燃え上がる傾向にあります。
