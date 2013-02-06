@@ -3,12 +3,37 @@
     <title>木下修司事務所</title>
     <link rel="alternate" type="text/html" href="http://www.kino3.jp/" />
     <link rel="self" type="application/atom+xml" href="http://www.kino3.jp/atom.xml" />
-   <id>tag:www.kino3.jp,2012://1</id>
+   <id>tag:www.kino3.jp,2013://1</id>
     <link rel="service.post" type="application/atom+xml" href="http://www.kino3.jp/x/mt/mt-atom.cgi/weblog/blog_id=1" title="木下修司事務所" />
-    <updated>2012-10-19T11:00:28Z</updated>
+    <updated>2013-02-06T02:37:58Z</updated>
     <subtitle>仏教的な、余りに仏教的な</subtitle>
     <generator uri="http://www.sixapart.com/movabletype/">Movable Type  3.2-ja-2</generator>
  
+<entry>
+    <title>サイトリニューアルに伴い凍結します</title>
+    <link rel="alternate" type="text/html" href="http://www.kino3.jp/archives/2013/02/post_194.html" />
+    <link rel="service.edit" type="application/atom+xml" href="http://www.kino3.jp/x/mt/mt-atom.cgi/weblog/blog_id=1/entry_id=433" title="サイトリニューアルに伴い凍結します" />
+    <id>tag:www.kino3.jp,2013://1.433</id>
+    
+    <published>2013-02-06T02:34:11Z</published>
+    <updated>2013-02-06T02:37:58Z</updated>
+    
+    <summary>いよいよトップページのリニューアルに着手しようと思ったので、約7年続いたこのブロ...</summary>
+    <author>
+        <name>木下修司</name>
+        <uri>http://www.kino3.jp/</uri>
+    </author>
+            <category term="私" />
+    
+    <content type="html" xml:lang="ja" xml:base="http://www.kino3.jp/">
+        いよいよトップページのリニューアルに着手しようと思ったので、約7年続いたこのブログは今後更新しないことにしました。まあ、すでに1年前からはてなダイアリーのほうに移行してるので特に誰も支障はないでしょうが、一応書いておきます。
+
+当初movableTypeのことなんてまるっきりわからなかったのですが、いまいろいろ設定とか見てみたらそれなりにわかるようになっている自分がいて驚きました。なりゆきでSEやってたのも悪くなかったですね、といったところでしょうか。
+
+ともかくここはいろいろと恥ずかしい記録の残骸になるでしょう。でも恥知らずなことぐらいしか取り柄がないと何年か前に自分で言っていたようなので、そのままにしておきます。
+        
+    </content>
+</entry>
 <entry>
     <title>プロフィールだけ更新</title>
     <link rel="alternate" type="text/html" href="http://www.kino3.jp/archives/2012/10/post_193.html" />
@@ -365,32 +390,6 @@
         どこかのだれかが「3週間ぐらい毎日続ければそれは習慣となる」といったことを言っていたと思うのだが、文章を書くというのもそういうことだと思う。今日の日経新聞の夕刊で久々に丸山健二を見たが、毎朝２，３時間書いて、そのあとは庭いじりが日課だと言っていた。
 
 しかし、丸山健二って生きていたのかというか何というか。昔なにかひとつだけ読んだことがある気がするけれども、今改めて読むとまた何か思うものもありそう。
-        
-    </content>
-</entry>
-<entry>
-    <title>結婚しました</title>
-    <link rel="alternate" type="text/html" href="http://www.kino3.jp/archives/2011/05/post_180.html" />
-    <link rel="service.edit" type="application/atom+xml" href="http://www.kino3.jp/x/mt/mt-atom.cgi/weblog/blog_id=1/entry_id=418" title="結婚しました" />
-    <id>tag:www.kino3.jp,2011://1.418</id>
-    
-    <published>2011-05-15T13:29:32Z</published>
-    <updated>2011-05-15T13:32:18Z</updated>
-    
-    <summary>twitterではつぶやいてたんですが、改めて。 先月４月３０日に結婚しました。...</summary>
-    <author>
-        <name>木下修司</name>
-        <uri>http://www.kino3.jp/</uri>
-    </author>
-            <category term="私" />
-    
-    <content type="html" xml:lang="ja" xml:base="http://www.kino3.jp/">
-        <![CDATA[twitterではつぶやいてたんですが、改めて。
-先月４月３０日に結婚しました。相手は<a href="http://twitter.com/#!/pinonon" target="_blank">大阪府在住の一般女性</a>です。結婚式は大変なので、小さいものをごく身内で挙げました。今のところパーティなんかの予定はないのですが、結婚しましたハガキを作ろうかと思っているので「俺にも／私にもハガキをくれ！」「むしろ幸せをくれ！」という方は
-wow＠kino3.jp（＠を半角になおしてください）
-宛に住所を書いて送ってください（携帯のアドレス知ってる人はそこでもいいです）。まだ全然作ってないので暑中見舞いぐらいになると思いますが、送ります。メールいただかなくても、ぼくが既に住所を知っている方には出します。
-
-ただ自分たちが幸せであるというだけでなく、人々を幸せにするような人間でありたいと思うこの頃。]]>
         
     </content>
 </entry>
