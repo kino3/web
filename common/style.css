@@ -2,10 +2,14 @@
     font-family:     "yutapon";
     src:            url("yutapon_coding_081.woff") format('woff');
 }
+@font-face {
+    font-family:     "mplus";
+    src:            url("mpwebfont-regular.woff") format('woff');
+}
 
 .test{
     margin:         100px 0px 100px 0px;
     text-align:     center;
-    font-family:    "yutapon";
+    font-family:    "mplus";
     font-size:      20px;
 }
