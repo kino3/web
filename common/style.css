@@ -7,9 +7,18 @@
     src:            url("mpwebfont-regular.woff") format('woff');
 }
 
-.test{
-    margin:         100px 0px 100px 0px;
-    text-align:     center;
+.top{
+    margin:         100px 100px 100px 100px;
+    text-align:     left;
     font-family:    "mplus";
     font-size:      20px;
+    line-height:    60px;
+}
+
+.little{
+    margin:         80px 80px 80px 80px;
+    text-align:     left;
+    font-family:    "mplus";
+    font-size:      16px;
+    line-height:    26px;
 }
