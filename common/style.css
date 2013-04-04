@@ -7,6 +7,17 @@
     src:            url("mpwebfont-regular.woff") format('woff');
 }
 
+a{
+    color: #666666;
+    font-style: normal;
+    text-decoration: none;
+}
+
+a:hover{
+    color: #000000;
+    text-decoration: underline;
+}
+
 .top{
     margin:         100px 100px 100px 100px;
     text-align:     left;
@@ -15,10 +26,16 @@
     line-height:    60px;
 }
 
-.little{
+.small{
     margin:         80px 80px 80px 80px;
     text-align:     left;
     font-family:    "mplus";
     font-size:      16px;
     line-height:    26px;
+}
+
+.portrait{
+    position: absolute;
+    bottom: 80px;
+    right: 80px;
 }
