@@ -18,10 +18,13 @@ a:hover{
     text-decoration: underline;
 }
 
+*{
+    font-family:    "mplus";
+}
+
 .top{
     margin:         100px 100px 100px 100px;
     text-align:     left;
-    font-family:    "mplus";
     font-size:      20px;
     line-height:    60px;
 }
@@ -29,7 +32,6 @@ a:hover{
 .small{
     margin:         80px 80px 80px 80px;
     text-align:     left;
-    font-family:    "mplus";
     font-size:      16px;
     line-height:    26px;
 }
