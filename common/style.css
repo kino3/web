@@ -37,6 +37,8 @@ a:hover{
 }
 
 .portrait{
+    z-index: -1;
+    opacity: 0.5;
     position: absolute;
     bottom: 80px;
     right: 80px;
