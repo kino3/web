@@ -1,32 +1,25 @@
-@font-face {
-    font-family:     "yutapon";
-    src:            url("yutapon_coding_081.woff") format('woff');
-}
-@font-face {
-    font-family:     "mplus";
-    src:            url("mpwebfont-regular.woff") format('woff');
-}
-
 a{
-    color: #666666;
+    color: #dddddd;
     font-style: normal;
     text-decoration: none;
 }
 
 a:hover{
-    color: #000000;
+    color: #ffffff;
     text-decoration: underline;
 }
 
 *{
-    font-family:    "mplus";
+    background-color: #000000;
+    color: #bbbbbb;
+    font-family: Consolas,"Courier New",Courier,"Migu 1M","ÉÅÉCÉäÉI";
 }
 
 .top{
     margin:         100px 100px 100px 100px;
     text-align:     left;
     font-size:      20px;
-    line-height:    60px;
+    line-height:    30px;
 }
 
 .small{
